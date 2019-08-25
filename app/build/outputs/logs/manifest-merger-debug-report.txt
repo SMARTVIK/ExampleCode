@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
-INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
-INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
-INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
+ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
 MERGED from [com.android.support:appcompat-v7:28.0.0] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\appcompat-v7-28.0.0.aar\16357cbb024573bd2c4085ff6e429d22\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\d9c0f01dfcfa8a85c8dc0d2b333f985c\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:support-fragment:28.0.0] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\support-fragment-28.0.0.aar\f0ca7d194172c6f57cae734397b478c3\AndroidManifest.xml:17:1-22:12
@@ -31,25 +31,25 @@ MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\VIVEK\.gradle\cache
 MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\f979b9c96c2f1b18f65f6ed4139c037e\AndroidManifest.xml:17:1-22:12
 MERGED from [android.arch.core:runtime:1.1.1] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\bb167b055ed8b3f7e0e5b7a287976e72\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:interpolator:28.0.0] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\interpolator-28.0.0.aar\f8cc8319470e0cc0219edce5cc5572bf\AndroidManifest.xml:17:1-22:12
-INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
-INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
-INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
+INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
+INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
 	package
 		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:3:11-37
 		INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml
 		INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml
-		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
+		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
 		INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml
-		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-19:12
+		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:1-26:12
 		INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:5:5-17:19
+ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:5:5-24:19
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\d9c0f01dfcfa8a85c8dc0d2b333f985c\AndroidManifest.xml:9:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.1.3.aar\d9c0f01dfcfa8a85c8dc0d2b333f985c\AndroidManifest.xml:9:5-20
 MERGED from [com.android.support:support-compat:28.0.0] C:\Users\VIVEK\.gradle\caches\transforms-1\files-1.1\support-compat-28.0.0.aar\ea87a207d196f4d67555ed9aba627938\AndroidManifest.xml:22:5-94
@@ -66,10 +66,10 @@ MERGED from [com.android.support:versionedparcelable:28.0.0] C:\Users\VIVEK\.gra
 		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:6:13-39
 	android:theme
 		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:9:13-44
-activity#com.spf.panditji.HomeActivity
+activity#com.spf.panditji.view.HomeActivity
 ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:10:9-16:20
 	android:name
-		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:10:19-47
+		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:10:19-52
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:11:13-15:29
 action#android.intent.action.MAIN
@@ -80,6 +80,10 @@ category#android.intent.category.LAUNCHER
 ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:14:17-76
 	android:name
 		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:14:27-74
+activity#com.spf.panditji.view.SplashActivity
+ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:17:9-23:20
+	android:name
+		ADDED from D:\PanditJi\app\src\main\AndroidManifest.xml:17:19-54
 uses-sdk
 INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\PanditJi\app\src\main\AndroidManifest.xml
