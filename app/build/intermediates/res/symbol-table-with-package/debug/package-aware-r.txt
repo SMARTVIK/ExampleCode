@@ -384,16 +384,19 @@ color button_material_light
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
+color darkBlack
 color dim_foreground_disabled_material_dark
 color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
 color dim_foreground_material_light
+color email_bg
 color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color lightGrey
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -430,6 +433,8 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color tooltip_background_dark
 color tooltip_background_light
+color transparent
+color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -514,6 +519,7 @@ dimen compat_notification_large_icon_max_height
 dimen compat_notification_large_icon_max_width
 dimen disabled_alpha_material_dark
 dimen disabled_alpha_material_light
+dimen email_padding
 dimen highlight_alpha_material_colored
 dimen highlight_alpha_material_dark
 dimen highlight_alpha_material_light
@@ -521,6 +527,9 @@ dimen hint_alpha_material_dark
 dimen hint_alpha_material_light
 dimen hint_pressed_alpha_material_dark
 dimen hint_pressed_alpha_material_light
+dimen large_text
+dimen margin_eye
+dimen margin_top_sign_up
 dimen notification_action_icon_size
 dimen notification_action_text_size
 dimen notification_big_circle_margin
@@ -536,6 +545,13 @@ dimen notification_small_icon_size_as_large
 dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
+dimen padding_bottom_sign_in_text
+dimen padding_left_sign_in_text
+dimen padding_top_sign_in_text
+dimen sign_in_text
+dimen text_email
+dimen text_sign_in
+dimen text_title
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -544,6 +560,7 @@ dimen tooltip_precise_anchor_threshold
 dimen tooltip_vertical_padding
 dimen tooltip_y_offset_non_touch
 dimen tooltip_y_offset_touch
+dimen verify_email
 drawable abc_ab_share_pack_mtrl_alpha
 drawable abc_action_bar_item_background_material
 drawable abc_btn_borderless_material
@@ -630,6 +647,9 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable back_icon
 drawable bg
+drawable email_bg
+drawable layout_bg
+drawable login_bg
 drawable logo
 drawable menu
 drawable notification_action_background
@@ -645,6 +665,8 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable search
+drawable sign_in_gradient
+drawable text_bg
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable view
@@ -678,6 +700,7 @@ id alertTitle
 id all
 id always
 id async
+id back
 id barrier
 id beginning
 id blocking
@@ -692,6 +715,7 @@ id chronometer
 id clip_horizontal
 id clip_vertical
 id collapseActionView
+id confirm_pass_edit_text
 id content
 id contentPanel
 id custom
@@ -702,6 +726,7 @@ id dimensions
 id direct
 id disableHome
 id edit_query
+id email_edit_text
 id end
 id expand_activities_button
 id expanded_menu
@@ -712,6 +737,7 @@ id forever
 id gone
 id group_divider
 id groups
+id header_layout
 id home
 id homeAsUp
 id icon
@@ -728,7 +754,9 @@ id listMode
 id list_item
 id message
 id middle
+id mobile_edit_text
 id multiply
+id name_edit_text
 id never
 id none
 id normal
@@ -738,6 +766,8 @@ id notification_main_column_container
 id packed
 id parent
 id parentPanel
+id pass_edit_text
+id password_edit_text
 id percent
 id progress_circular
 id progress_horizontal
@@ -764,6 +794,7 @@ id shortcut
 id showCustom
 id showHome
 id showTitle
+id sign_in_text
 id spacer
 id split_action_bar
 id spread
@@ -828,8 +859,12 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_forgot_password
 layout activity_home
+layout activity_sign_in
+layout activity_sign_up
 layout activity_splash
+layout activity_verify_email
 layout notification_action
 layout notification_action_tombstone
 layout notification_template_custom_big
@@ -1229,6 +1264,8 @@ style Widget_AppCompat_Toolbar_Button_Navigation
 style Widget_Compat_NotificationActionContainer
 style Widget_Compat_NotificationActionText
 style Widget_Support_CoordinatorLayout
+style darkBlackText
+style verify_email_text
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth

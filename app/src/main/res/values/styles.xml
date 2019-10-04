@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="darkBlackText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/darkBlack</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="verify_email_text" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:text">1</item>
+        <item name="android:textSize">@dimen/verify_email</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/darkBlack</item>
+        <item name="android:background">@drawable/text_bg</item>
+    </style>
+
 </resources>

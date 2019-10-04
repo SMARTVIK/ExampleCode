@@ -154,16 +154,19 @@
     <color name="colorAccent">#ffffff</color>
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#ffffff</color>
+    <color name="darkBlack">#4E4B47</color>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
+    <color name="email_bg">#F8F8F8</color>
     <color name="error_color_material_dark">#ff7043</color>
     <color name="error_color_material_light">#ff5722</color>
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
+    <color name="lightGrey">#A49F99</color>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
     <color name="material_blue_grey_950">#ff21272b</color>
@@ -198,6 +201,8 @@
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6FFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
     <declare-styleable name="ActionBar">
         <!-- The type of navigation to use. -->
         <attr name="navigationMode">
@@ -1745,6 +1750,7 @@
     <dimen name="compat_notification_large_icon_max_width">320dp</dimen>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
+    <dimen name="email_padding">15dp</dimen>
     <item format="float" name="highlight_alpha_material_colored" type="dimen">0.26</item>
     <item format="float" name="highlight_alpha_material_dark" type="dimen">0.20</item>
     <item format="float" name="highlight_alpha_material_light" type="dimen">0.12</item>
@@ -1752,6 +1758,9 @@
     <item format="float" name="hint_alpha_material_light" type="dimen">0.38</item>
     <item format="float" name="hint_pressed_alpha_material_dark" type="dimen">0.70</item>
     <item format="float" name="hint_pressed_alpha_material_light" type="dimen">0.54</item>
+    <dimen name="large_text">30dp</dimen>
+    <dimen name="margin_eye">30dp</dimen>
+    <dimen name="margin_top_sign_up">10dp</dimen>
     <dimen name="notification_action_icon_size">32dp</dimen>
     <dimen name="notification_action_text_size">13sp</dimen>
     <dimen name="notification_big_circle_margin">12dp</dimen>
@@ -1767,6 +1776,13 @@
     <dimen name="notification_subtext_size">13sp</dimen>
     <dimen name="notification_top_pad">10dp</dimen>
     <dimen name="notification_top_pad_large_text">5dp</dimen>
+    <dimen name="padding_bottom_sign_in_text">20dp</dimen>
+    <dimen name="padding_left_sign_in_text">20dp</dimen>
+    <dimen name="padding_top_sign_in_text">30dp</dimen>
+    <dimen name="sign_in_text">26sp</dimen>
+    <dimen name="text_email">14sp</dimen>
+    <dimen name="text_sign_in">18sp</dimen>
+    <dimen name="text_title">20sp</dimen>
     <dimen name="tooltip_corner_radius">2dp</dimen>
     <dimen name="tooltip_horizontal_padding">16dp</dimen>
     <dimen name="tooltip_margin">8dp</dimen>
@@ -1775,6 +1791,7 @@
     <dimen name="tooltip_vertical_padding">6.5dp</dimen>
     <dimen name="tooltip_y_offset_non_touch">0dp</dimen>
     <dimen name="tooltip_y_offset_touch">16dp</dimen>
+    <dimen name="verify_email">18sp</dimen>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
     <drawable name="notification_template_icon_low_bg">#0cffffff</drawable>
     <item name="action_bar_activity_content" type="id"/>
@@ -2175,7 +2192,7 @@
         <item name="isLightTheme">true</item>
     </style>
     <style name="Base.V7.Theme.AppCompat" parent="Platform.AppCompat">
-        <item name="viewInflaterClass">android.support.v7.app.AppCompatViewInflater</item>
+        <item name="viewInflaterClass">androidx.appcompat.app.AppCompatViewInflater</item>
         <item name="windowNoTitle">false</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionBarOverlay">false</item>
@@ -2369,7 +2386,7 @@
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
     <style name="Base.V7.Theme.AppCompat.Light" parent="Platform.AppCompat.Light">
-        <item name="viewInflaterClass">android.support.v7.app.AppCompatViewInflater</item>
+        <item name="viewInflaterClass">androidx.appcompat.app.AppCompatViewInflater</item>
 
         <item name="windowNoTitle">false</item>
         <item name="windowActionBar">true</item>
@@ -3312,5 +3329,17 @@
     <style name="Widget.Compat.NotificationActionText" parent=""/>
     <style name="Widget.Support.CoordinatorLayout" parent="android:Widget">
         <item name="statusBarBackground">#000000</item>
+    </style>
+    <style name="darkBlackText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/darkBlack</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="verify_email_text" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:text">1</item>
+        <item name="android:textSize">@dimen/verify_email</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/darkBlack</item>
+        <item name="android:background">@drawable/text_bg</item>
     </style>
 </resources>

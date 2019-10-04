@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".view.SignUpActivity">
+
+    <RelativeLayout
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="20dp"
+            android:id="@+id/header_layout"
+            android:background="@drawable/layout_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/back"
+                android:src="@drawable/back_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <TextView
+                android:text="Sign Up"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/text_title"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+            app:layout_constraintTop_toBottomOf="@+id/header_layout"
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+
+        <TextView
+                android:text="Name"
+                android:textSize="@dimen/text_email"
+                android:textColor="@color/lightGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <EditText
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/darkBlack"
+                android:text="John Appleseed"
+                android:padding="@dimen/email_padding"
+                android:background="@drawable/email_bg"
+                android:id="@+id/name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_marginTop="@dimen/margin_top_sign_up"
+                android:text="EMAIL"
+                android:textSize="@dimen/text_email"
+                android:textColor="@color/lightGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <EditText
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/darkBlack"
+                android:text="vps@gmail.com"
+                android:padding="@dimen/email_padding"
+                android:background="@drawable/email_bg"
+                android:id="@+id/email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_marginTop="@dimen/margin_top_sign_up"
+                android:text="Mobile No"
+                android:textSize="@dimen/text_email"
+                android:textColor="@color/lightGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <EditText
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/darkBlack"
+                android:text="+91 8006318818"
+                android:padding="@dimen/email_padding"
+                android:background="@drawable/email_bg"
+                android:id="@+id/mobile_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_marginTop="@dimen/margin_top_sign_up"
+                android:text="Password"
+                android:textSize="@dimen/text_email"
+                android:textColor="@color/lightGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <EditText
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/darkBlack"
+                android:text="vps@gmail.com"
+                android:padding="@dimen/email_padding"
+                android:background="@drawable/email_bg"
+                android:id="@+id/pass_edit_text"
+                android:inputType="numberPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_marginTop="@dimen/margin_top_sign_up"
+                android:text="Confirm Password"
+                android:textSize="@dimen/text_email"
+                android:textColor="@color/lightGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <EditText
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/darkBlack"
+                android:text="vps@gmail.com"
+                android:padding="@dimen/email_padding"
+                android:background="@drawable/email_bg"
+                android:id="@+id/confirm_pass_edit_text"
+                android:inputType="numberPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:padding="15dp"
+                android:background="@drawable/sign_in_gradient"
+                android:layout_marginTop="25dp"
+                android:text="Sign Up"
+                android:textSize="@dimen/text_sign_in"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="15dp"
+            android:text="You have an account? Sign In"
+            android:textSize="@dimen/text_email"
+            android:textColor="@color/lightGrey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

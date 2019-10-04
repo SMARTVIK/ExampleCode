@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".view.SignInActivity">
+
+
+    <FrameLayout
+            android:id="@+id/header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login_bg" />
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/logo" />
+
+        </RelativeLayout>
+
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="20dp"
+                android:src="@drawable/back_icon" />
+
+    </FrameLayout>
+
+
+    <TextView
+            android:id="@+id/sign_in_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="@dimen/padding_left_sign_in_text"
+            android:paddingTop="@dimen/padding_top_sign_in_text"
+            android:paddingBottom="@dimen/padding_bottom_sign_in_text"
+            android:text="Verify Email"
+            android:textColor="@color/darkBlack"
+            android:textSize="@dimen/large_text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_layout" />
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding_left_sign_in_text"
+            android:layout_marginRight="@dimen/padding_left_sign_in_text"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/sign_in_text">
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open your email enter 6 digit OTP in the below field"
+                android:textColor="@color/lightGrey"
+                android:textSize="@dimen/text_email" />
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp">
+
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/verify_email_text"
+                         />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/verify_email_text"
+                        />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/verify_email_text"
+                        />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/verify_email_text"
+                        />
+
+
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/verify_email_text"
+                        />
+
+
+            </LinearLayout>
+            <LinearLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/verify_email_text"
+                        />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/sign_in_gradient"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="Verify Code"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_sign_in" />
+
+    </LinearLayout>
+
+    <EditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/transparent"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/email_padding"
+            android:text=""
+            android:textColor="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
