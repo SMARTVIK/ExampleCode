@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <androidx.viewpager.widget.ViewPager
+            android:id="@+id/slider_pooja"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/book_by_cat_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/trending_pooja_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/most_rated_pujari_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+</LinearLayout>

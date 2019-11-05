@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/mobile_navigation"
+        app:startDestination="@+id/nav_home">
+
+    <fragment
+            android:id="@+id/nav_home"
+            android:name="com.spf.panditji.view.fragment.HomeFragment"
+            android:label="@string/menu_home"
+            tools:layout="@layout/fragment_home" />
+
+    <fragment
+            android:id="@+id/nav_categories"
+            android:name="com.spf.panditji.view.fragment.CategoriesFragment"
+            android:label="@string/menu_categories"
+            tools:layout="@layout/fragment_categories" />
+
+    <fragment
+            android:id="@+id/nav_my_bookings"
+            android:name="com.spf.panditji.view.fragment.MyBookingFragment"
+            android:label="@string/menu_my_booking"
+            tools:layout="@layout/fragment_booking" />
+
+    <fragment
+            android:id="@+id/nav_my_account"
+            android:name="com.spf.panditji.view.fragment.MyAccountFragment"
+            android:label="@string/menu_my_account"
+            tools:layout="@layout/fragment_my_account" />
+
+    <fragment
+            android:id="@+id/nav_about_us"
+            android:name="com.spf.panditji.view.fragment.AboutUsFragment"
+            android:label="@string/menu_about_us"
+            tools:layout="@layout/fragment_about_us" />
+</navigation>

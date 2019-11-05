@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PanditJi</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_categories">Categories</string>
+    <string name="menu_my_booking">My Booking</string>
+    <string name="menu_my_account">My Account</string>
+    <string name="menu_about_us">About Us</string>
+    <string name="menu_terms_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="menu_privacy_policy">Privacy Policy</string>
+    <string name="action_settings">Settings</string>
 </resources>
