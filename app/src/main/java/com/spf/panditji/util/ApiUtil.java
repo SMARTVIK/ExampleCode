@@ -2,12 +2,15 @@ package com.spf.panditji.util;
 
 import com.google.gson.Gson;
 import com.spf.panditji.listener.WebApi;
+import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OtpResponse;
+import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.model.SignUp;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -61,5 +64,15 @@ public class ApiUtil {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestString.getBytes());
         Call<OtpResponse> call = this.getApi().sendingOtp(requestBody);
         call.enqueue(callback);
+    }
+
+    public void getCategories(Callback<List<CategoryModel>> categoryModelCallback) {
+        Call<List<CategoryModel>> call = this.getApi().getCategories();
+        call.enqueue(categoryModelCallback);
+    }
+
+    public void getPopularPanditList(Callback<List<PopularPanditModel>> listCallback) {
+        Call<List<PopularPanditModel>> call = this.getApi().getPopularPandit();
+        call.enqueue(listCallback);
     }
 }

@@ -3,6 +3,9 @@ package com.spf.panditji.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.AdapterView
+import androidx.annotation.IntegerRes
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -13,6 +16,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
 import com.spf.panditji.R
+import ir.apend.slider.model.Slide
+import java.util.ArrayList
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,12 +29,6 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         setUpDrawerLayout()
-
-        setUpViewPager();
-    }
-
-    private fun setUpViewPager() {
-        pager = findViewById(R.id.slider_pooja)
 
     }
 
