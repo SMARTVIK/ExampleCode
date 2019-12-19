@@ -5,7 +5,11 @@ import com.spf.panditji.listener.WebApi;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OtpResponse;
 import com.spf.panditji.model.PopularPanditModel;
+import com.spf.panditji.model.PopularPoojaModel;
+import com.spf.panditji.model.PujaModel;
+import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
+import com.spf.panditji.model.UserProfileModel;
 
 import org.json.JSONObject;
 
@@ -44,6 +48,25 @@ public class ApiUtil {
         return this.api;
     }
 
+    public void getUserProfile(String userId, Callback<List<UserProfileModel>> callBack){
+        Map<String, String> values = new HashMap<>();
+        values.put("user_id",userId);
+        String requestString = new JSONObject(values).toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE),requestString.getBytes());
+        Call<List<UserProfileModel>> call = this.getApi().getUserProfile(requestBody);
+        call.enqueue(callBack);
+    }
+
+    public void signIn(String userMail, String pass, Callback<SignInResponse> callBack){
+        Map<String, String> values = new HashMap<>();
+        values.put("user",userMail);
+        values.put("pass",pass);
+        String requestString = new JSONObject(values).toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE),requestString.getBytes());
+        Call<SignInResponse> call = this.getApi().signIn(requestBody);
+        call.enqueue(callBack);
+    }
+
 
     public void signUpApi(String name, String email, String mobile, String password, Callback<SignUp> callback) {
         Map<String, String> params = new HashMap();
@@ -52,7 +75,7 @@ public class ApiUtil {
         params.put("mobile", mobile);
         params.put("password", password);
         String requestString = (new JSONObject(params)).toString();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestString.getBytes());
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
         Call<SignUp> call = this.getApi().loginWithPhone(requestBody);
         call.enqueue(callback);
     }
@@ -61,7 +84,7 @@ public class ApiUtil {
         Map<String, String> params = new HashMap();
         params.put("otp", otp);
         String requestString = (new JSONObject(params)).toString();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), requestString.getBytes());
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
         Call<OtpResponse> call = this.getApi().sendingOtp(requestBody);
         call.enqueue(callback);
     }
@@ -75,4 +98,20 @@ public class ApiUtil {
         Call<List<PopularPanditModel>> call = this.getApi().getPopularPandit();
         call.enqueue(listCallback);
     }
+
+    public void getPopularPoojaList(Callback<List<PopularPoojaModel>> listCallback) {
+        Call<List<PopularPoojaModel>> call = this.getApi().getPopularPoojaList();
+        call.enqueue(listCallback);
+    }
+
+    public void getListOfPujas(String cat, Callback<List<PujaModel>> listCallback) {
+        Map<String, String> params = new HashMap();
+        params.put("main", cat);
+        String requestString = (new JSONObject(params)).toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
+        Call<List<PujaModel>> call = this.getApi().getListPujas(requestBody);
+        call.enqueue(listCallback);
+    }
+
+
 }

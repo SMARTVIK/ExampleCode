@@ -1,22 +1,33 @@
 package com.spf.panditji.view.fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.spf.panditji.R;
+import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.PopularPanditModel;
+import com.spf.panditji.model.PopularPoojaModel;
 import com.spf.panditji.util.ApiUtil;
+import com.spf.panditji.view.CategoryListActivity;
 import com.spf.panditji.view.PopularPoojaAdapter;
 import com.spf.panditji.view.RoundImageAdapter;
 
@@ -31,31 +42,63 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-
-    private Slider slider;
     private RoundImageAdapter categoriesAdapter;
     private PopularPoojaAdapter popularPoojaAdapter;
     private PopularPanditAdapter popularPanditAdapter;
+    private List<CategoryModel> categoriesList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home,container,false);
-
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-           setUpViewPager(view);
-           setUpBookByCategory(view);
-           setUpPopularPoojaList(view);
-           setUpPopularPanditList(view);
+        initViews(view);
+        setUpViewPager(view);
+        setUpBookByCategory(view);
+        setUpPopularPoojaList(view);
+        setUpPopularPanditList(view);
 
-            getBookByCategory();
-            getPopularPoojaList();
-            getPopularPanditList();
+        getBookByCategory();
+        getPopularPoojaList();
+        getPopularPanditList();
+    }
+
+    private void initViews(View view) {
+        TextView viewAllCategory = view.findViewById(R.id.view_all_bbc);
+        TextView viewAllPooja = view.findViewById(R.id.view_all_popular_pooja);
+        TextView viewAllPurohit = view.findViewById(R.id.view_all_purohit);
+
+        viewAllCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+              startActivity(new Intent(getContext(),ViewAllCategories.class).putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) categoriesList));
+
+            }
+        });
+
+        viewAllPooja.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
+
+        viewAllPurohit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
     }
 
     private void getPopularPanditList() {
@@ -79,9 +122,61 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private LinearLayout llPagerDots;
+    private ViewPager viewPager;
+    private ArrayList<String> eventImagesUrl = new ArrayList<>();
+    private HomeViewPagerAdapter homeViewPagerAdapter;
+    private ImageView[] ivArrayDotsPager = new ImageView[3];
+
+    public void setUpViewPager(View view) {
+        viewPager = (ViewPager) view.findViewById(R.id.view_pager);
+        llPagerDots = (LinearLayout) view.findViewById(R.id.pager_dots);
+        homeViewPagerAdapter = new HomeViewPagerAdapter(getContext(), eventImagesUrl);
+        viewPager.setAdapter(homeViewPagerAdapter);
+        setupPagerIndidcatorDots();
+        if (ivArrayDotsPager.length > 0) {
+            ivArrayDotsPager[0].setImageResource(R.drawable.selected);
+        }
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                for (int i = 0; i < ivArrayDotsPager.length; i++) {
+                    ivArrayDotsPager[i].setImageResource(R.drawable.unselected);
+                }
+                ivArrayDotsPager[position].setImageResource(R.drawable.selected);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
     private void getPopularPoojaList() {
 
+        ApiUtil.getInstance().getPopularPoojaList(new Callback<List<PopularPoojaModel>>() {
 
+            @Override
+            public void onResponse(Call<List<PopularPoojaModel>> call, Response<List<PopularPoojaModel>> response) {
+
+                if(response.isSuccessful() && response.code() == 200){
+                    popularPoojaAdapter.setData(response.body());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<PopularPoojaModel>> call, Throwable t) {
+
+            }
+        });
 
     }
 
@@ -92,6 +187,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
 
                 if(response.isSuccessful() && response.code() == 200){
+                    categoriesList = response.body();
                     categoriesAdapter.setData(response.body());
                 }
 
@@ -108,7 +204,14 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.book_by_cat_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        categoriesAdapter = new RoundImageAdapter();
+        categoriesAdapter = new RoundImageAdapter(new OnItemClick<CategoryModel>() {
+            @Override
+            public void onClick(CategoryModel categoryModel) {
+
+                startActivity(new Intent(getContext(), CategoryListActivity.class).putExtra("cat",categoryModel.getCat()));
+
+            }
+        });
         recyclerView.setAdapter(categoriesAdapter);
     }
 
@@ -128,26 +231,25 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(popularPanditAdapter);
     }
 
+    private void setupPagerIndidcatorDots() {
+        ivArrayDotsPager = new ImageView[eventImagesUrl.size()];
+        for (int i = 0; i < ivArrayDotsPager.length; i++) {
+            ivArrayDotsPager[i] = new ImageView(getActivity());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(5, 0, 5, 0);
+            ivArrayDotsPager[i].setLayoutParams(params);
+            ivArrayDotsPager[i].setImageResource(R.drawable.unselected);
+            //ivArrayDotsPager[i].setAlpha(0.4f);
+            ivArrayDotsPager[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    view.setAlpha(1);
+                }
+            });
+            llPagerDots.addView(ivArrayDotsPager[i]);
+            llPagerDots.bringToFront();
+        }
 
-    private void setUpViewPager(View view) {
-
-        slider = view.findViewById(R.id.slider);
-
-        List<Slide> slideList = new ArrayList<>();
-        slideList.add(new Slide(0, getUrlToLoad(R.drawable.email_bg), getResources().getDimensionPixelSize(R.dimen.slider_image_corner)));
-        slideList.add(new Slide(1, getUrlToLoad(R.drawable.email_bg), getResources().getDimensionPixelSize(R.dimen.slider_image_corner)));
-        slideList.add(new Slide(2, getUrlToLoad(R.drawable.email_bg), getResources().getDimensionPixelSize(R.dimen.slider_image_corner)));
-
-        //handle slider click listener
-        slider.setItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //do what you want
-            }
-        });
-
-        //add slides to slider
-        slider.addSlides(slideList);
     }
 
     private int getUrlToLoad(int resourceId) {
@@ -159,4 +261,32 @@ public class HomeFragment extends Fragment {
         return resourceId;
     }
 
+    private class HomeViewPagerAdapter extends PagerAdapter {
+
+
+        public HomeViewPagerAdapter(Context context, ArrayList<String> eventImagesUrl) {
+
+        }
+
+        @NonNull
+        @Override
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            return super.instantiateItem(container, position);
+        }
+
+        @Override
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+            return false;
+        }
+    }
 }

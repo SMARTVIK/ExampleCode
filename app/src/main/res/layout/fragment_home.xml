@@ -1,135 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ir.apend.slider.ui.Slider
-            android:id="@+id/slider"
-            android:visibility="gone"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="250dp"/>
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <RelativeLayout
-                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="200dp">
 
-            <TextView
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/text_232323"
-                    android:text="Book by categories"
-                    android:layout_alignParentLeft="true"
-                    android:id="@+id/book_by_cat_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <TextView
-                    android:textColor="@color/reddish"
-                    android:text="View All"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+            <LinearLayout
+                    android:id="@+id/pager_dots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"></LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                <TextView
+                        android:id="@+id/book_by_cat_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Book by categories"
+                        android:textColor="@color/text_232323" />
+
+                <TextView
+                        android:id="@+id/view_all_bbc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="View All"
+                        android:textColor="@color/reddish" />
+
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/book_by_cat_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible" />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/toolbar_gradient">
+
+            <RelativeLayout
+                    android:id="@+id/top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                <TextView
+                        android:id="@+id/popular_puja_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Popular Puja"
+                        android:textColor="@color/white" />
+
+                <TextView
+                        android:id="@+id/view_all_popular_pooja"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="View All"
+                        android:textColor="@color/white" />
+
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/trending_pooja_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/top"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible" />
 
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_margin="10dp"
-                android:id="@+id/book_by_cat_list"
-                android:orientation="horizontal"
-                android:visibility="visible"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                <TextView
+                        android:id="@+id/popular_pandit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Top Rated Purohit"
+                        android:textColor="@color/text_232323" />
+
+                <TextView
+                        android:id="@+id/view_all_purohit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="View All"
+                        android:textColor="@color/reddish" />
+
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/popular_pandit_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <RelativeLayout
-            android:background="@drawable/toolbar_gradient"
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
-
-        <RelativeLayout
-                android:id="@+id/top"
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/white"
-                    android:text="Popular Puja"
-                    android:layout_alignParentLeft="true"
-                    android:id="@+id/popular_puja_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:textColor="@color/white"
-                    android:text="View All"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@+id/top"
-                android:layout_margin="10dp"
-                android:id="@+id/trending_pooja_list"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
-    </RelativeLayout>
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <RelativeLayout
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="@color/text_232323"
-                    android:text="Top Rated Purohit"
-                    android:layout_alignParentLeft="true"
-                    android:id="@+id/popular_pandit_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:textColor="@color/reddish"
-                    android:text="View All"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_margin="10dp"
-                android:id="@+id/popular_pandit_list"
-                android:orientation="horizontal"
-                android:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

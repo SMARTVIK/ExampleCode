@@ -12,12 +12,23 @@
         <activity
                 android:name=".view.DetailScreen"
                 android:label="@string/title_activity_detail_screen"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity
+                android:name=".view.CategoryListActivity"
+                android:label="@string/title_activity_detail_screen"
+                android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity
+                android:name=".view.MyAccount"
+                android:label="@string/title_activity_detail_screen"
+                android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity
+                android:name=".view.fragment.ViewAllCategories"
+                android:label="@string/title_activity_detail_screen"
+                android:theme="@style/AppTheme.NoActionBar"/>
 
-        </activity>
         <activity android:name=".view.VerifyEmailActivity" />
         <activity android:name=".view.ForgotPasswordActivity" />
         <activity android:name=".view.SignUpActivity" />

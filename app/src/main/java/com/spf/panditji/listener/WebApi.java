@@ -3,7 +3,11 @@ package com.spf.panditji.listener;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OtpResponse;
 import com.spf.panditji.model.PopularPanditModel;
+import com.spf.panditji.model.PopularPoojaModel;
+import com.spf.panditji.model.PujaModel;
+import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
+import com.spf.panditji.model.UserProfileModel;
 
 import java.util.List;
 
@@ -26,4 +30,16 @@ public interface WebApi {
 
     @POST("pandit")
     Call<List<PopularPanditModel>> getPopularPandit();
+
+    @POST("home_cat")
+    Call<List<PopularPoojaModel>> getPopularPoojaList();
+
+    @POST("cat")
+    Call<List<PujaModel>> getListPujas(@Body RequestBody requestBody);
+
+    @POST("user_profile")
+    Call<List<UserProfileModel>> getUserProfile(@Body RequestBody requestBody);
+
+    @POST("login")
+    Call<SignInResponse> signIn(@Body RequestBody requestBody);
 }

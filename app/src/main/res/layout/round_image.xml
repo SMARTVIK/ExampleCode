@@ -20,7 +20,7 @@
             android:layout_marginTop="10dp"
             android:textColor="@color/darkBlack"
             android:fontFamily="sans-serif-medium"
-            android:id="@+id/text"
+            android:id="@+id/name"
             android:layout_gravity="center"
             android:text="category"
             android:layout_width="wrap_content"

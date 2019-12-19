@@ -8,25 +8,27 @@
 
     <com.spf.panditji.view.RoundRectCornerImageView
             android:id="@+id/image"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:src="@drawable/abhilash"
-            android:layout_height="100dp"/>
+            android:scaleType="centerCrop"
+            android:layout_height="150dp"/>
 
     <TextView
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:text="Pandit Mohit Pandey"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/white"
+            android:textColor="@color/darkBlack"
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     <TextView
+
             android:layout_marginBottom="5dp"
             android:text="Pandit Mohit Pandey"
             android:fontFamily="sans-serif-medium"
-            android:textColor="@color/white"
+            android:textColor="@color/green"
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
