@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.spf.panditji.R;
+import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.view.PopularPoojaAdapter;
@@ -19,7 +20,12 @@ import com.spf.panditji.view.PopularPoojaAdapter;
 import java.util.List;
 
 public class PopularPanditAdapter extends RecyclerView.Adapter<PopularPanditAdapter.ItemViewHolder> {
+    private final OnItemClick<PopularPanditModel> onItemClick;
     private List<PopularPanditModel> models;
+
+    public PopularPanditAdapter(OnItemClick<PopularPanditModel> onItemClick) {
+        this.onItemClick = onItemClick;
+    }
 
     @NonNull
     @Override
@@ -70,6 +76,13 @@ public class PopularPanditAdapter extends RecyclerView.Adapter<PopularPanditAdap
             threeStar = itemView.findViewById(R.id.three_star);
             fourStar = itemView.findViewById(R.id.four_star);
             fiveStar = itemView.findViewById(R.id.five_star);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClick.onClick(models.get(getLayoutPosition()));
+                }
+            });
         }
     }
 }

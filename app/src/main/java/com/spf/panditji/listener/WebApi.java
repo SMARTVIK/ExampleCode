@@ -1,9 +1,12 @@
 package com.spf.panditji.listener;
 
+import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OtpResponse;
+import com.spf.panditji.model.PanditDetailsModel;
 import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.model.PopularPoojaModel;
+import com.spf.panditji.model.PujaDetailModel;
 import com.spf.panditji.model.PujaModel;
 import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
@@ -42,4 +45,13 @@ public interface WebApi {
 
     @POST("login")
     Call<SignInResponse> signIn(@Body RequestBody requestBody);
+
+    @POST("pooja_details")
+    Call<List<PujaDetailModel>> getPujaDetails(@Body RequestBody requestBody);
+
+    @POST("pandit_profile")
+    Call<PanditDetailsModel> getPanditDetails(@Body RequestBody requestBody);
+
+    @POST("check_availability")
+    Call<AvailabilityModel> getPandit(@Body RequestBody requestBody);
 }

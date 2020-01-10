@@ -2,6 +2,7 @@ package com.spf.panditji.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.PujaModel;
 import com.spf.panditji.util.ApiUtil;
+import com.spf.panditji.view.fragment.ViewAllCategories;
 
 import java.util.List;
 
@@ -67,9 +69,13 @@ public class CategoryListActivity extends AppCompatActivity {
             @Override
             public void onClick(PujaModel categoryModel) {
 
+                Log.d("Puja Model ",categoryModel.getId());
+
+                startActivity(new Intent(CategoryListActivity.this, DetailScreen.class).putExtra("id",categoryModel.getId()));
 
             }
         });
+        recyclerView.addItemDecoration(new SpacesItemDecoration(30));
         recyclerView.setAdapter(categoriesAdapter);
     }
 }

@@ -59,7 +59,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ItemViewHolder
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView;
+        RoundRectCornerImageView imageView;
         TextView textView;
 
         public ItemViewHolder(@NonNull View itemView) {

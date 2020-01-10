@@ -1,9 +1,11 @@
 package com.spf.panditji.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.spf.panditji.R;
 import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.CategoryModel;
+import com.spf.panditji.view.CategoryListActivity;
 import com.spf.panditji.view.GridAdapter;
 import com.spf.panditji.view.SpacesItemDecoration;
 
@@ -43,6 +46,9 @@ public class ViewAllCategories extends AppCompatActivity {
 
                 //onItemClick handling
 
+                startActivity(new Intent(ViewAllCategories.this, CategoryListActivity.class).putExtra("cat",categoryModel.getCat()));
+
+
             }
         });
 
@@ -53,9 +59,9 @@ public class ViewAllCategories extends AppCompatActivity {
 
     private void initViews() {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Category");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle("Category");
     }
 
     @Override

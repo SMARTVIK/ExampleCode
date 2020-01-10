@@ -2,10 +2,13 @@ package com.spf.panditji.util;
 
 import com.google.gson.Gson;
 import com.spf.panditji.listener.WebApi;
+import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OtpResponse;
+import com.spf.panditji.model.PanditDetailsModel;
 import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.model.PopularPoojaModel;
+import com.spf.panditji.model.PujaDetailModel;
 import com.spf.panditji.model.PujaModel;
 import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
@@ -113,5 +116,44 @@ public class ApiUtil {
         call.enqueue(listCallback);
     }
 
+    public void getPujaDetails(String id, Callback<List<PujaDetailModel>> listCallback) {
+        Map<String, String> params = new HashMap();
+        params.put("id", id);
+        String requestString = (new JSONObject(params)).toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
+        Call<List<PujaDetailModel>> call = this.getApi().getPujaDetails(requestBody);
+        call.enqueue(listCallback);
+    }
 
+
+    public void getReviewsList() {
+
+
+    }
+
+    public void getPujaList() {
+
+
+
+    }
+
+    public void getPanditDetails(String id, Callback<PanditDetailsModel> panditDetailsModelCallback) {
+        Map<String, String> params = new HashMap();
+        params.put("id", id);
+        String requestString = (new JSONObject(params)).toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
+        Call<PanditDetailsModel> call = this.getApi().getPanditDetails(requestBody);
+        call.enqueue(panditDetailsModelCallback);
+    }
+
+    public void getPandit(String locationCity, String date, String poojaName, Callback<AvailabilityModel> availabilityModelCallback) {
+        Map<String, String> params = new HashMap();
+        params.put("city", locationCity);
+        params.put("date", date);
+        params.put("pooja", poojaName);
+        String requestString = (new JSONObject(params)).toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
+        Call<AvailabilityModel> call = this.getApi().getPandit(requestBody);
+        call.enqueue(availabilityModelCallback);
+    }
 }

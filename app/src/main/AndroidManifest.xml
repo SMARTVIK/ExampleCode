@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="com.spf.panditji">
+    package="com.spf.panditji">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-            android:allowBackup="true"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".view.CheckAvailabilityScreen"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-                android:name=".view.DetailScreen"
-                android:label="@string/title_activity_detail_screen"
-                android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:name=".view.PanditProfile"
+            android:label="@string/title_activity_pandit_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".view.CategoryListActivity"
-                android:label="@string/title_activity_detail_screen"
-                android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:name=".view.DetailScreen"
+            android:label="@string/title_activity_detail_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".view.MyAccount"
-                android:label="@string/title_activity_detail_screen"
-                android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:name=".view.CategoryListActivity"
+            android:label="@string/title_activity_detail_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-                android:name=".view.fragment.ViewAllCategories"
-                android:label="@string/title_activity_detail_screen"
-                android:theme="@style/AppTheme.NoActionBar"/>
-
+            android:name=".view.MyAccount"
+            android:label="@string/title_activity_detail_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.fragment.ViewAllCategories"
+            android:label="@string/title_category"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.VerifyEmailActivity" />
         <activity android:name=".view.ForgotPasswordActivity" />
         <activity android:name=".view.SignUpActivity" />
         <activity android:name=".view.SignInActivity" />
         <activity
-                android:name=".view.HomeActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".view.SplashActivity">
+            android:name=".view.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

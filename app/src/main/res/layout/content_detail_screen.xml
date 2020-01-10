@@ -9,269 +9,308 @@
         tools:context=".view.DetailScreen"
         tools:showIn="@layout/activity_detail_screen">
 
-  <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-          android:orientation="vertical"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/white">
 
-      <androidx.cardview.widget.CardView
-              app:cardBackgroundColor="@color/white"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
-
-          <LinearLayout
-                  android:layout_margin="20dp"
-                  android:orientation="vertical"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
-
-
-              <TextView
-                      android:id="@+id/name"
-                      android:layout_marginBottom="10dp"
-                      android:textSize="28dp"
-                      android:text="Full Vivah Puja"
-                      android:fontFamily="sans-serif-medium"
-                      android:textColor="@color/text_232323"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"/>
-
-              <LinearLayout
-                      android:layout_marginBottom="5dp"
-                      android:orientation="vertical"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content">
-
-                  <LinearLayout
-                          android:id="@+id/one_star"
-                          android:visibility="gone"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:src="@drawable/star" />
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_height="wrap_content"/>
-
-                  </LinearLayout>
-
-                  <LinearLayout
-                          android:visibility="gone"
-                          android:id="@+id/two_star"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:src="@drawable/star" />
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_height="wrap_content"/>
-
-                  </LinearLayout>
-
-                  <LinearLayout
-                          android:visibility="gone"
-                          android:id="@+id/three_star"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:src="@drawable/star" />
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_height="wrap_content"/>
-
-                  </LinearLayout>
-
-                  <LinearLayout
-                          android:visibility="gone"
-                          android:id="@+id/four_star"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:src="@drawable/star" />
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star_inactive"
-                              android:layout_height="wrap_content"/>
-
-                  </LinearLayout>
-
-                  <LinearLayout
-                          android:id="@+id/five_star"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:orientation="horizontal">
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:src="@drawable/star" />
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_marginLeft="5dp"
-                              android:layout_marginRight="5dp"
-                              android:layout_height="wrap_content"/>
-
-                      <ImageView
-                              android:layout_width="wrap_content"
-                              android:src="@drawable/star"
-                              android:layout_height="wrap_content"/>
-
-                  </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
 
 
-              </LinearLayout>
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Full Vivah Puja"
+                    android:textColor="@color/text_232323"
+                    android:textSize="28dp" />
 
-              <TextView
-                      android:id="@+id/amount"
-                      android:layout_marginTop="10dp"
-                      android:textSize="20dp"
-                      android:text="₹2100"
-                      android:fontFamily="sans-serif-medium"
-                      android:textColor="@color/green"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="vertical">
 
-              <TextView
-                      android:text="Annaprashan is a Sanskrit word which means grain initiat or rice feeding. This means introducing solid food for the baby for the first time. Usually done after the Namakarana is considered very auspicious as the baby can have solid foods. The child is usually fed with very small quantities of Rice or Sweet payasam."
-                      android:id="@+id/description"
-                      android:textColor="@color/darkBlack"
-                      android:fontFamily="sans-serif"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:id="@+id/one_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star_inactive" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_inactive" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star_inactive" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_inactive" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/two_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_inactive" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star_inactive" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_inactive" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/three_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star_inactive" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_inactive" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/four_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star_inactive" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/five_star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/star" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/star" />
+
+                    </LinearLayout>
 
 
-          </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="₹2100"
+                    android:textColor="@color/green"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:text="Annaprashan is a Sanskrit word which means grain initiat or rice feeding. This means introducing solid food for the baby for the first time. Usually done after the Namakarana is considered very auspicious as the baby can have solid foods. The child is usually fed with very small quantities of Rice or Sweet payasam."
+                    android:textColor="@color/darkBlack" />
 
 
-
-      </androidx.cardview.widget.CardView>
-      <androidx.cardview.widget.CardView
-              android:layout_marginTop="20dp"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
-
-          <androidx.viewpager.widget.ViewPager
-                  android:id="@+id/pager"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"/>
+            </LinearLayout>
 
 
-      </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-  </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/add_to_bag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/sign_in_gradient"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="Add To Bag"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/green_round"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

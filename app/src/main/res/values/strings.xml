@@ -24,4 +24,6 @@
         "seams, divides space, and indicates moving parts.\n\n"
 "
     </string>
+    <string name="title_category">Category</string>
+    <string name="title_activity_pandit_profile">PanditProfile</string>
 </resources>

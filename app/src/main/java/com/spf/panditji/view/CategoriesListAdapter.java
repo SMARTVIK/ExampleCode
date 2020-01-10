@@ -73,6 +73,16 @@ class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAdapter.I
 
             name = itemView.findViewById(R.id.name);
             price = itemView.findViewById(R.id.price);
+
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    itemClick.onClick(models.get(getLayoutPosition()));
+
+                }
+            });
         }
     }
 }

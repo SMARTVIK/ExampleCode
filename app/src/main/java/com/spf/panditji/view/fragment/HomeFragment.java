@@ -28,6 +28,8 @@ import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.model.PopularPoojaModel;
 import com.spf.panditji.util.ApiUtil;
 import com.spf.panditji.view.CategoryListActivity;
+import com.spf.panditji.view.DetailScreen;
+import com.spf.panditji.view.PanditProfile;
 import com.spf.panditji.view.PopularPoojaAdapter;
 import com.spf.panditji.view.RoundImageAdapter;
 
@@ -131,12 +133,20 @@ public class HomeFragment extends Fragment {
     public void setUpViewPager(View view) {
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
         llPagerDots = (LinearLayout) view.findViewById(R.id.pager_dots);
+        eventImagesUrl.add("");
+        eventImagesUrl.add("");
+        eventImagesUrl.add("");
         homeViewPagerAdapter = new HomeViewPagerAdapter(getContext(), eventImagesUrl);
         viewPager.setAdapter(homeViewPagerAdapter);
         setupPagerIndidcatorDots();
         if (ivArrayDotsPager.length > 0) {
             ivArrayDotsPager[0].setImageResource(R.drawable.selected);
         }
+
+        viewPager.setClipToPadding(false);
+        viewPager.setPadding(0,0,0,0);
+        viewPager.setPageMargin(50);
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -219,7 +229,14 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.trending_pooja_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        popularPoojaAdapter = new PopularPoojaAdapter();
+        popularPoojaAdapter = new PopularPoojaAdapter(new OnItemClick<PopularPoojaModel>() {
+            @Override
+            public void onClick(PopularPoojaModel popularPoojaModel) {
+
+                startActivity(new Intent(getContext(), DetailScreen.class).putExtra("id",popularPoojaModel.getId()));
+
+            }
+        });
         recyclerView.setAdapter(popularPoojaAdapter);
     }
 
@@ -227,7 +244,13 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.popular_pandit_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        popularPanditAdapter = new PopularPanditAdapter();
+
+        popularPanditAdapter = new PopularPanditAdapter(new OnItemClick<PopularPanditModel>() {
+            @Override
+            public void onClick(PopularPanditModel popularPanditModel) {
+                startActivity(new Intent(getContext(), PanditProfile.class).putExtra("pandit_model",popularPanditModel));
+            }
+        });
         recyclerView.setAdapter(popularPanditAdapter);
     }
 
@@ -271,22 +294,24 @@ public class HomeFragment extends Fragment {
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            return super.instantiateItem(container, position);
+            View view = LayoutInflater.from(container.getContext()).inflate(R.layout.pager_item,null);
+            container.addView(view);
+            return view;
         }
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            super.destroyItem(container, position, object);
+            container.removeView((View) object);
         }
 
         @Override
         public int getCount() {
-            return 0;
+            return 3;
         }
 
         @Override
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-            return false;
+            return view == object;
         }
     }
 }

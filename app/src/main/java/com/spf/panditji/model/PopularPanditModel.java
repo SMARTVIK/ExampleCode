@@ -1,6 +1,9 @@
 package com.spf.panditji.model;
 
-public class PopularPanditModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class PopularPanditModel implements Parcelable {
 
 
     /**
@@ -14,6 +17,25 @@ public class PopularPanditModel {
     private String name;
     private String star;
     private String img;
+
+    protected PopularPanditModel(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        star = in.readString();
+        img = in.readString();
+    }
+
+    public static final Creator<PopularPanditModel> CREATOR = new Creator<PopularPanditModel>() {
+        @Override
+        public PopularPanditModel createFromParcel(Parcel in) {
+            return new PopularPanditModel(in);
+        }
+
+        @Override
+        public PopularPanditModel[] newArray(int size) {
+            return new PopularPanditModel[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -45,5 +67,18 @@ public class PopularPanditModel {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeString(star);
+        parcel.writeString(img);
     }
 }
