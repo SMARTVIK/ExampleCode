@@ -2,6 +2,7 @@ package com.spf.panditji.listener;
 
 import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.CategoryModel;
+import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.OtpResponse;
 import com.spf.panditji.model.PanditDetailsModel;
 import com.spf.panditji.model.PopularPanditModel;
@@ -54,4 +55,7 @@ public interface WebApi {
 
     @POST("check_availability")
     Call<AvailabilityModel> getPandit(@Body RequestBody requestBody);
+
+    @POST("order")
+    Call<List<OrderModel>> order(@Body RequestBody requestBody);
 }

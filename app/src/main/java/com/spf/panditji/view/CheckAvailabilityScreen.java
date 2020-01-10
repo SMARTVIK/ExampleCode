@@ -2,19 +2,26 @@ package com.spf.panditji.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.IntentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.spf.panditji.R;
 import com.spf.panditji.model.AvailabilityModel;
+import com.spf.panditji.model.BookingModel;
+import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.PujaDetailModel;
 import com.spf.panditji.util.ApiUtil;
 
@@ -41,6 +48,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
     private int mHour;
     private int mMinute;
     private String selectedTime;
+    private AvailabilityModel availablePandit;
+    private int categoryId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +61,11 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Details");
 
-        datePickerDialog = new DatePickerDialog(CheckAvailabilityScreen.this, datePickerListener, 2020, 1, 1);
+        final Calendar c = Calendar.getInstance();
+
+        datePickerDialog = new DatePickerDialog(CheckAvailabilityScreen.this, datePickerListener, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.getDatePicker().setMinDate(c.getTime().getTime());
 
         pujaDetailModel = getIntent().getParcelableExtra("pooja_model");
 
@@ -95,14 +108,54 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
                 if(panditSelected){
 
 
+                    BookingModel bookingModel = new BookingModel();
+                    bookingModel.setBooking_id("");
+                    bookingModel.setCat(categoryId);
+                    bookingModel.setEmail("abc@gmail.com");
+                    bookingModel.setCity("New Delhi");
+                    bookingModel.setLandmark("Swaraj Colony");
+                    bookingModel.setMobile("9999887766");
+                    bookingModel.setState("Delhi");
+                    bookingModel.setAddress("b10");
+                    bookingModel.setPandit(availablePandit.getName());
+                    bookingModel.setPandit_email(availablePandit.getEmail());
+                    bookingModel.setPandit_mobile(availablePandit.getMobile());
+                    bookingModel.setPooja(pujaDetailModel.getTitle());
+                    bookingModel.setPrice(pujaDetailModel.getPrice());
+                    bookingModel.setPin("110030");
+                    bookingModel.setPooja_date(selectedDate);
+                    bookingModel.setPooja_time(selectedTime);
+                    bookingModel.setUser_name("WWxjNWFreHRlSEJaVnpGdVVVZDBhMk4zUFQwPQ");
 
+                    Gson gson = new Gson();
+                    String json = gson.toJson(bookingModel);
+
+                    ApiUtil.getInstance().booking(json, new Callback<List<OrderModel>>() {
+                        @Override
+                        public void onResponse(Call<List<OrderModel>> call, Response<List<OrderModel>> response) {
+
+                            Toast.makeText(CheckAvailabilityScreen.this, "booking done with booking id "+response.body().get(0).getBooking_id(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(CheckAvailabilityScreen.this, HomeActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<OrderModel>> call, Throwable t) {
+
+                            Log.d("onFailure",t.getMessage());
+
+                        }
+                    });
+
+                    Log.d("json ",json);
                 }
-                else if(selectedDate!=null){
+                else if(selectedDate!=null && selectedTime!=null){
 
                     ApiUtil.getInstance().getPandit("Noida", selectedDate, pujaDetailModel.getTitle(), new Callback<AvailabilityModel>() {
                         @Override
                         public void onResponse(Call<AvailabilityModel> call, Response<AvailabilityModel> response) {
-                            AvailabilityModel availablePandit = response.body();
+                            availablePandit = response.body();
                             findViewById(R.id.available_pandit_view).setVisibility(View.VISIBLE);
                             final TextView userName = findViewById(R.id.user_name);
                             final TextView userDetailEmail = findViewById(R.id.user_email);

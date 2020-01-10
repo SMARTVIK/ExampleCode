@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.spf.panditji.listener.WebApi;
 import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.CategoryModel;
+import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.OtpResponse;
 import com.spf.panditji.model.PanditDetailsModel;
 import com.spf.panditji.model.PopularPanditModel;
@@ -14,6 +15,7 @@ import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
 import com.spf.panditji.model.UserProfileModel;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -155,5 +157,17 @@ public class ApiUtil {
         RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
         Call<AvailabilityModel> call = this.getApi().getPandit(requestBody);
         call.enqueue(availabilityModelCallback);
+    }
+
+    public void booking(String json, Callback<List<OrderModel>> orderModelCallback) {
+        String requestString = null;
+        try {
+            requestString = (new JSONObject(json)).toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
+        Call<List<OrderModel>> call = this.getApi().order(requestBody);
+        call.enqueue(orderModelCallback);
     }
 }
