@@ -1,11 +1,13 @@
 package com.spf.panditji.view;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.IntentCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -18,11 +20,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.R;
 import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.BookingModel;
 import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.PujaDetailModel;
+import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.util.ApiUtil;
 
 import java.util.Arrays;
@@ -35,6 +39,8 @@ import retrofit2.Response;
 
 public class CheckAvailabilityScreen extends AppCompatActivity {
 
+    private static final int SIGN_IN = 100;
+    private static final int SIGN_UP = 101;
     private PujaDetailModel pujaDetailModel;
     private TextView datePickerButton;
     private int day;
@@ -49,6 +55,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
     private int mMinute;
     private String selectedTime;
     private AvailabilityModel availablePandit;
+    private UserProfileModel userProfileModel;
     private int categoryId = 1;
 
     @Override
@@ -107,48 +114,17 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
 
                 if(panditSelected){
 
+                    if(!ApplicationDataController.getInstance().isUserSignedUp()){
+                        SignUpUser();
+                        return;
+                    }
 
-                    BookingModel bookingModel = new BookingModel();
-                    bookingModel.setBooking_id("");
-                    bookingModel.setCat(categoryId);
-                    bookingModel.setEmail("abc@gmail.com");
-                    bookingModel.setCity("New Delhi");
-                    bookingModel.setLandmark("Swaraj Colony");
-                    bookingModel.setMobile("9999887766");
-                    bookingModel.setState("Delhi");
-                    bookingModel.setAddress("b10");
-                    bookingModel.setPandit(availablePandit.getName());
-                    bookingModel.setPandit_email(availablePandit.getEmail());
-                    bookingModel.setPandit_mobile(availablePandit.getMobile());
-                    bookingModel.setPooja(pujaDetailModel.getTitle());
-                    bookingModel.setPrice(pujaDetailModel.getPrice());
-                    bookingModel.setPin("110030");
-                    bookingModel.setPooja_date(selectedDate);
-                    bookingModel.setPooja_time(selectedTime);
-                    bookingModel.setUser_name("WWxjNWFreHRlSEJaVnpGdVVVZDBhMk4zUFQwPQ");
+                    if (ApplicationDataController.getInstance().isUserLoggedIn()) {
+                        createOrder();
+                        return;
+                    }
 
-                    Gson gson = new Gson();
-                    String json = gson.toJson(bookingModel);
-
-                    ApiUtil.getInstance().booking(json, new Callback<List<OrderModel>>() {
-                        @Override
-                        public void onResponse(Call<List<OrderModel>> call, Response<List<OrderModel>> response) {
-
-                            Toast.makeText(CheckAvailabilityScreen.this, "booking done with booking id "+response.body().get(0).getBooking_id(), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(CheckAvailabilityScreen.this, HomeActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<OrderModel>> call, Throwable t) {
-
-                            Log.d("onFailure",t.getMessage());
-
-                        }
-                    });
-
-                    Log.d("json ",json);
+                    startActivityForResult(new Intent(CheckAvailabilityScreen.this,SignInActivity.class),SIGN_IN);
                 }
                 else if(selectedDate!=null && selectedTime!=null){
 
@@ -172,13 +148,56 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
 
                         }
                     });
-
                 }
-
-
             }
         });
 
+    }
+
+    private void SignUpUser() {
+        startActivityForResult(new Intent(CheckAvailabilityScreen.this,SignUpActivity.class).putExtra("show_signin",false),SIGN_UP);
+    }
+
+    private void createOrder() {
+        BookingModel bookingModel = new BookingModel();
+        bookingModel.setBooking_id("");
+        bookingModel.setCat(categoryId);
+        bookingModel.setEmail("abc@gmail.com");
+        bookingModel.setCity("New Delhi");
+        bookingModel.setLandmark("Swaraj Colony");
+        bookingModel.setMobile("9999887766");
+        bookingModel.setState("Delhi");
+        bookingModel.setAddress("b10");
+        bookingModel.setPandit(availablePandit.getName());
+        bookingModel.setPandit_email(availablePandit.getEmail());
+        bookingModel.setPandit_mobile(availablePandit.getMobile());
+        bookingModel.setPooja(pujaDetailModel.getTitle());
+        bookingModel.setPrice(pujaDetailModel.getPrice());
+        bookingModel.setPin("110030");
+        bookingModel.setPooja_date(selectedDate);
+        bookingModel.setPooja_time(selectedTime);
+        bookingModel.setUser_name("WWxjNWFreHRlSEJaVnpGdVVVZDBhMk4zUFQwPQ");
+
+        Gson gson = new Gson();
+        String json = gson.toJson(bookingModel);
+
+        ApiUtil.getInstance().booking(json, new Callback<List<OrderModel>>() {
+            @Override
+            public void onResponse(Call<List<OrderModel>> call, Response<List<OrderModel>> response) {
+
+                Toast.makeText(CheckAvailabilityScreen.this, "booking done with booking id "+response.body().get(0).getBooking_id(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CheckAvailabilityScreen.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<List<OrderModel>> call, Throwable t) {
+
+                Log.d("onFailure",t.getMessage());
+
+            }
+        });
     }
 
     private void tiemPicker(){
@@ -224,5 +243,44 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setAdapter(adapter);
         adapter.setData(keyPoints);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SIGN_UP && resultCode == Activity.RESULT_OK){
+
+            if(ApplicationDataController.getInstance().getCurrentUserProfile()==null){
+
+                getUserProfile(data.getStringExtra("user_id"));
+
+            }
+
+        }
+
+
+    }
+
+    private void getUserProfile(String user_id) {
+
+        ApiUtil.getInstance().getUserProfile(user_id, new Callback<List<UserProfileModel>>() {
+
+            @Override
+            public void onResponse(Call<List<UserProfileModel>> call, Response<List<UserProfileModel>> response) {
+
+                if (response.code() == 200) {
+                    ApplicationDataController.getInstance().setCurrentUserProfile(response.body().get(0));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<UserProfileModel>> call, Throwable t) {
+
+            }
+        });
+
     }
 }
