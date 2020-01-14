@@ -2,6 +2,7 @@ package com.spf.panditji.util;
 
 import com.google.gson.Gson;
 import com.spf.panditji.listener.WebApi;
+import com.spf.panditji.model.AddressModel;
 import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OrderModel;
@@ -14,6 +15,7 @@ import com.spf.panditji.model.PujaModel;
 import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
 import com.spf.panditji.model.UserProfileModel;
+import com.spf.panditji.view.AddressResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,8 +87,9 @@ public class ApiUtil {
         call.enqueue(callback);
     }
 
-    public void sendingOtpToServer(String otp, Callback<OtpResponse> callback) {
+    public void sendingOtpToServer(String mobile, String otp, Callback<OtpResponse> callback) {
         Map<String, String> params = new HashMap();
+        params.put("mobile", mobile);
         params.put("otp", otp);
         String requestString = (new JSONObject(params)).toString();
         RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
@@ -169,5 +172,24 @@ public class ApiUtil {
         RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
         Call<List<OrderModel>> call = this.getApi().order(requestBody);
         call.enqueue(orderModelCallback);
+    }
+
+    public void addAddress(String name, String userId, String address, String city, String state, String landmark, String pin, Callback<AddressResponse> callback) {
+
+
+
+
+
+    }
+
+    public void getAllAddresses(String userId, Callback<List<AddressModel>> listCallback) {
+
+        Map<String, String> params = new HashMap();
+        params.put("user_id", userId);
+        String requestString = (new JSONObject(params)).toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
+        Call<List<AddressModel>> call = this.getApi().getAllAddresses(requestBody);
+        call.enqueue(listCallback);
+
     }
 }

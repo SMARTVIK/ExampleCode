@@ -1,10 +1,10 @@
-package com.spf.panditji.model;
+package com.spf.panditji.view;
 
-public class OtpResponse {
+public class AddressResponse {
 
 
     /**
-     * alert : otp expire
+     * alert : added successfully
      * error : 0
      */
 

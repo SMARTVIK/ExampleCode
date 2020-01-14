@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/user_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
 
-    <FrameLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <View
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:background="@drawable/toolbar_gradient" />
 
-        <androidx.cardview.widget.CardView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/pandit_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,14 +37,14 @@
                 android:elevation="10dp"
                 app:cardCornerRadius="10dp">
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="20dp">
 
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/image"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -45,7 +54,7 @@
                         app:civ_border_color="@color/reddish"
                         app:civ_border_width="1dp" />
 
-                <TextView
+                    <TextView
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -57,7 +66,7 @@
                         android:textSize="22sp" />
 
 
-                <TextView
+                    <TextView
                         android:id="@+id/text_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -68,22 +77,21 @@
                         android:textColor="@color/darkBlack"
                         android:textSize="12sp" />
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
-
-
-    </FrameLayout>
+            </androidx.cardview.widget.CardView>
 
 
-    <LinearLayout
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:background="#F8F8F8"
-            android:layout_height="match_parent">
+            android:orientation="vertical">
 
 
-        <TextView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/toolbar_gradient"
@@ -94,12 +102,12 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp">
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -109,7 +117,7 @@
                     android:textSize="16sp" />
 
 
-            <TextView
+                <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -120,15 +128,15 @@
                     android:textSize="16sp" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:padding="20dp">
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -138,7 +146,7 @@
                     android:textSize="16sp" />
 
 
-            <TextView
+                <TextView
                     android:id="@+id/user_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,15 +157,15 @@
                     android:textSize="16sp" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:padding="20dp">
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -167,7 +175,7 @@
                     android:textSize="16sp" />
 
 
-            <TextView
+                <TextView
                     android:id="@+id/user_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,15 +186,15 @@
                     android:textSize="16sp" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
                 android:padding="20dp">
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -196,7 +204,7 @@
                     android:textSize="16sp" />
 
 
-            <TextView
+                <TextView
                     android:id="@+id/user_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -207,9 +215,28 @@
                     android:textSize="16sp" />
 
 
-        </RelativeLayout>
+            </RelativeLayout>
+
+
+        </LinearLayout>
 
 
     </LinearLayout>
+
+
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/go_to_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="30dp"
+        android:background="@drawable/toolbar_gradient_round"
+        android:padding="15dp"
+        android:text="Sign In First"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
 
 </LinearLayout>

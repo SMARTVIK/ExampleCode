@@ -41,6 +41,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
 
     private static final int SIGN_IN = 100;
     private static final int SIGN_UP = 101;
+    private static final int SELECT_ADDRESS = 102;
     private PujaDetailModel pujaDetailModel;
     private TextView datePickerButton;
     private int day;
@@ -149,6 +150,14 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+
+        findViewById(R.id.select_address).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(CheckAvailabilityScreen.this,SelectAddressScreen.class),SELECT_ADDRESS);
             }
         });
 
@@ -273,6 +282,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
                 if (response.code() == 200) {
                     ApplicationDataController.getInstance().setCurrentUserProfile(response.body().get(0));
                 }
+
+                findViewById(R.id.select_address).setVisibility(View.VISIBLE);
 
             }
 

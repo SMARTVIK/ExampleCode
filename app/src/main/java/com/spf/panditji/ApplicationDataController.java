@@ -11,6 +11,19 @@ public class ApplicationDataController {
     private static final ApplicationDataController ourInstance = new ApplicationDataController();
     private SignInResponse currentUserResponse;
     private UserProfileModel currentUserProfile;
+    private String userId;
+
+    public void setUserSignUp(boolean userSignUp) {
+        isUserSignUp = userSignUp;
+    }
+
+    private boolean isUserSignUp;
+
+    public void setUserLoggedIn(boolean userLoggedIn) {
+        isUserLoggedIn = userLoggedIn;
+    }
+
+    private boolean isUserLoggedIn;
 
     public Location getLocation() {
         return location;
@@ -31,11 +44,11 @@ public class ApplicationDataController {
     }
 
     public boolean isUserLoggedIn() {
-        return false;
+        return isUserLoggedIn;
     }
 
     public boolean isUserSignedUp() {
-        return false;
+        return isUserSignUp;
     }
 
     public void setCurrentUserResponse(SignInResponse currentUserResponse) {
@@ -52,5 +65,13 @@ public class ApplicationDataController {
 
     public void setCurrentUserProfile(UserProfileModel currentUserProfile) {
         this.currentUserProfile = currentUserProfile;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

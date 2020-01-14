@@ -1,5 +1,6 @@
 package com.spf.panditji.listener;
 
+import com.spf.panditji.model.AddressModel;
 import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OrderModel;
@@ -23,7 +24,7 @@ import retrofit2.http.POST;
 public interface WebApi {
 
 
-    @POST("register.php")
+    @POST("register_user.php")
     Call<SignUp> loginWithPhone(@Body RequestBody requestBody);
 
     @POST("verify_otp.php")
@@ -58,4 +59,7 @@ public interface WebApi {
 
     @POST("order")
     Call<List<OrderModel>> order(@Body RequestBody requestBody);
+
+    @POST("address")
+    Call<List<AddressModel>> getAllAddresses(@Body RequestBody requestBody);
 }
