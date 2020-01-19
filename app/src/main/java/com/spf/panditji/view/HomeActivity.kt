@@ -1,5 +1,6 @@
 package com.spf.panditji.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -53,7 +54,16 @@ class HomeActivity : AppCompatActivity() {
         if(!ApplicationDataController.getInstance().isUserLoggedIn){
             view.findViewById<View>(R.id.profile).visibility = View.GONE
             view.findViewById<View>(R.id.go_to_sign_in).visibility = View.VISIBLE
+        }else{
+            view.findViewById<View>(R.id.profile).visibility = View.VISIBLE
+            view.findViewById<View>(R.id.go_to_sign_in).visibility = View.GONE
         }
+
+        view.findViewById<View>(R.id.go_to_sign_in).setOnClickListener {
+            finish()
+            startActivity(Intent(this@HomeActivity,SignInActivity::class.java))
+        }
+
 
 
     }

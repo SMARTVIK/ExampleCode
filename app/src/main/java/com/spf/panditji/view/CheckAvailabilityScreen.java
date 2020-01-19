@@ -14,7 +14,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -36,6 +39,7 @@ import com.spf.panditji.util.L;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -69,6 +73,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
     private String bookingId;
     private View addressLayout;
     private TextView address;
+    private String selectedCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +118,33 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
             }
         });
 
+        final List<String> list = new ArrayList<String>();
+        list.add("Select");
+        list.add("Noida");
+        list.add("Delhi");
+        list.add("Prayagraj");
+        list.add("G. Noida");
+        list.add("Gururam");
+
+        Spinner spinner_1 = (Spinner) findViewById(R.id.spinner);
+        spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                selectedCity = list.get(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_1.setAdapter(adapter);
+
         selectTime = findViewById(R.id.select_time);
         selectTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +166,11 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
                 if(selectedTime == null){
                     Toast.makeText(CheckAvailabilityScreen.this, "Select time first!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(selectedCity==null || (selectedCity!=null && selectedCity.equals("Select"))){
+                    Toast.makeText(CheckAvailabilityScreen.this, "Select city first!!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -183,8 +220,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
 
                 }
-                else if (selectedDate != null && selectedTime != null && selectedAddress != null){
-                    String addressCity = selectedAddress.getCity();
+                else if (selectedDate != null && selectedTime != null && selectedCity != null){
+                    String addressCity = selectedCity;
                     addressCity = addressCity.substring(0, 1).toUpperCase() + addressCity.substring(1);
                     ApiUtil.getInstance().getPandit(addressCity, selectedDate, pujaDetailModel.getTitle(), new Callback<AvailabilityModel>() {
                         @Override
