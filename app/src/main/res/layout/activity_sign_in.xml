@@ -1,150 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent"
-        tools:context=".view.SignInActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".view.SignInActivity">
 
 
     <FrameLayout
-            android:id="@+id/header_layout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/login_bg" />
 
         <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/login_bg" />
-
-        <ImageView
-                android:layout_marginTop="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logo" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/logo" />
 
     </FrameLayout>
 
 
     <TextView
-            android:paddingTop="@dimen/padding_top_sign_in_text"
-            android:paddingLeft="@dimen/padding_left_sign_in_text"
-            android:paddingBottom="@dimen/padding_bottom_sign_in_text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header_layout"
-            android:text="Sign In"
-            android:id="@+id/sign_in_text"
-            android:textColor="@color/darkBlack"
-            android:textSize="@dimen/sign_in_text"
-            android:fontFamily="sans-serif-medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/sign_in_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:paddingLeft="@dimen/padding_left_sign_in_text"
+        android:paddingTop="@dimen/padding_top_sign_in_text"
+        android:paddingBottom="@dimen/padding_bottom_sign_in_text"
+        android:text="Sign In"
+        android:textColor="@color/darkBlack"
+        android:textSize="@dimen/sign_in_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_layout" />
 
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/padding_left_sign_in_text"
-            android:layout_marginLeft="@dimen/padding_left_sign_in_text"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/sign_in_text">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_left_sign_in_text"
+        android:layout_marginRight="@dimen/padding_left_sign_in_text"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_text">
 
 
         <TextView
-                android:text="EMAIL"
-                android:textSize="@dimen/text_email"
-                android:textColor="@color/lightGrey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EMAIL"
+            android:textColor="@color/lightGrey"
+            android:textSize="@dimen/text_email" />
 
 
         <EditText
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/darkBlack"
-                android:text="vps@gmail.com"
-                android:padding="@dimen/email_padding"
-                android:background="@drawable/email_bg"
-                android:id="@+id/email_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/email_bg"
+            android:padding="@dimen/email_padding"
+            android:hint="vps@gmail.com"
+            android:textColor="@color/darkBlack" />
 
         <TextView
-                android:layout_marginTop="10dp"
-                android:text="PASSWORD"
-                android:textSize="@dimen/text_email"
-                android:textColor="@color/lightGrey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="PASSWORD"
+            android:textColor="@color/lightGrey"
+            android:textSize="@dimen/text_email" />
 
 
         <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <EditText
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/darkBlack"
-                    android:text="1234567"
-                    android:padding="@dimen/email_padding"
-                    android:background="@drawable/email_bg"
-                    android:id="@+id/password_edit_text"
-                    android:inputType="numberPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/email_bg"
+                android:inputType="numberPassword"
+                android:padding="@dimen/email_padding"
+                android:hint="1234567"
+                android:textColor="@color/darkBlack" />
 
 
             <ImageView
-                    android:padding="10dp"
-                    android:src="@drawable/view"
-                    android:layout_marginRight="@dimen/margin_eye"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginRight="@dimen/margin_eye"
+                android:padding="10dp"
+                android:src="@drawable/view" />
 
         </FrameLayout>
 
 
         <TextView
-                android:layout_gravity="end"
-                android:layout_marginTop="15dp"
-                android:text="Forgot Password?"
-                android:textSize="@dimen/text_email"
-                android:textColor="@color/lightGrey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="15dp"
+            android:text="Forgot Password?"
+            android:textColor="@color/lightGrey"
+            android:textSize="@dimen/text_email" />
 
 
         <TextView
-                android:padding="15dp"
-                android:background="@drawable/sign_in_gradient"
-                android:layout_marginTop="15dp"
-                android:text="Sign In"
-                android:textSize="@dimen/text_sign_in"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/sign_in_gradient"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:id="@+id/sign_in"
+            android:padding="15dp"
+            android:text="Sign In"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_sign_in" />
 
     </LinearLayout>
 
 
     <TextView
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_margin="15dp"
-            android:text="You don't have an account? Sign Up"
-            android:textSize="@dimen/text_email"
-            android:textColor="@color/lightGrey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:id="@+id/sign_up_button"
+        android:text="You don't have an account? Sign Up"
+        android:textColor="@color/lightGrey"
+        android:textSize="@dimen/text_email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

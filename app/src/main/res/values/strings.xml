@@ -8,7 +8,7 @@
     <string name="menu_terms_conditions"><![CDATA[Terms & Conditions]]></string>
     <string name="menu_privacy_policy">Privacy Policy</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_detail_screen">DetailScreen</string>
+    <string name="title_activity_detail_screen"></string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -26,4 +26,5 @@
     </string>
     <string name="title_category">Category</string>
     <string name="title_activity_pandit_profile">PanditProfile</string>
+    <string name="permission_rationale">Location permission is needed for core functionality</string>
 </resources>

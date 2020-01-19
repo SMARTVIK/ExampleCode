@@ -69,7 +69,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ItemView
 
         TextView address;
 
-        public ItemViewHolder(@NonNull View itemView) {
+        public ItemViewHolder(@NonNull final View itemView) {
             super(itemView);
             address = itemView.findViewById(R.id.text);
 
@@ -77,6 +77,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ItemView
                 @Override
                 public void onClick(View view) {
                     selected = getLayoutPosition();
+                    ((SelectAddressScreen)itemView.getContext()).setSelectedAddress(addressModels.get(getLayoutPosition()));
                 }
             });
         }

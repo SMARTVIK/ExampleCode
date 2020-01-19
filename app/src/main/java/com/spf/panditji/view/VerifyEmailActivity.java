@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.Api;
 import com.spf.panditji.R;
@@ -58,9 +59,12 @@ public class VerifyEmailActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onResponse(Call<OtpResponse> call, Response<OtpResponse> response) {
-                        if(response.code() == 200 && response.body().getError()==1)
-                        setResult(Activity.RESULT_OK);
-                        finish();
+                        if (response.code() == 200 && response.body().getError() == 0) {
+                            setResult(Activity.RESULT_OK);
+                            finish();
+                        }else{
+                            Toast.makeText(VerifyEmailActivity.this, ""+response.body().getAlert(), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

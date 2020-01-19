@@ -1,12 +1,14 @@
 package com.spf.panditji.util;
 
 import com.google.gson.Gson;
+import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.listener.WebApi;
 import com.spf.panditji.model.AddressModel;
 import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.OtpResponse;
+import com.spf.panditji.model.PagerModel;
 import com.spf.panditji.model.PanditDetailsModel;
 import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.model.PopularPoojaModel;
@@ -28,6 +30,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -175,15 +178,21 @@ public class ApiUtil {
     }
 
     public void addAddress(String name, String userId, String address, String city, String state, String landmark, String pin, Callback<AddressResponse> callback) {
-
-
-
-
-
+        Map<String, String> params = new HashMap();
+        params.put("user_id", userId);
+        params.put("address", address);
+        params.put("name", name);
+        params.put("city", city);
+        params.put("state", state);
+        params.put("landmark", landmark);
+        params.put("pin", pin);
+        String requestString = (new JSONObject(params)).toString();
+        RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE), requestString.getBytes());
+        Call<AddressResponse> call = this.getApi().addAddress(requestBody);
+        call.enqueue(callback);
     }
 
     public void getAllAddresses(String userId, Callback<List<AddressModel>> listCallback) {
-
         Map<String, String> params = new HashMap();
         params.put("user_id", userId);
         String requestString = (new JSONObject(params)).toString();
@@ -191,5 +200,34 @@ public class ApiUtil {
         Call<List<AddressModel>> call = this.getApi().getAllAddresses(requestBody);
         call.enqueue(listCallback);
 
+    }
+
+    public void getUserProfile(String user_id) {
+
+        Map<String, String> values = new HashMap<>();
+        values.put("user_id",user_id);
+        String requestString = new JSONObject(values).toString();
+        final RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE),requestString.getBytes());
+        Call<List<UserProfileModel>> call = this.getApi().getUserProfile(requestBody);
+        call.enqueue(new Callback<List<UserProfileModel>>() {
+
+            @Override
+            public void onResponse(Call<List<UserProfileModel>> call, Response<List<UserProfileModel>> response) {
+                if(response.code() == 200){
+                    ApplicationDataController.getInstance().setCurrentUserProfile(response.body().get(0));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserProfileModel>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void getHomeCat(Callback<List<PagerModel>> pagerModelCallback) {
+        Call<List<PagerModel>> call = this.getApi().getHomeCat();
+        call.enqueue(pagerModelCallback);
     }
 }

@@ -5,6 +5,7 @@ import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.OtpResponse;
+import com.spf.panditji.model.PagerModel;
 import com.spf.panditji.model.PanditDetailsModel;
 import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.model.PopularPoojaModel;
@@ -13,6 +14,7 @@ import com.spf.panditji.model.PujaModel;
 import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
 import com.spf.panditji.model.UserProfileModel;
+import com.spf.panditji.view.AddressResponse;
 
 import java.util.List;
 
@@ -62,4 +64,10 @@ public interface WebApi {
 
     @POST("address")
     Call<List<AddressModel>> getAllAddresses(@Body RequestBody requestBody);
+
+    @POST("address_add")
+    Call<AddressResponse> addAddress(@Body RequestBody requestBody);
+
+    @POST("home_cat")
+    Call<List<PagerModel>> getHomeCat();
 }

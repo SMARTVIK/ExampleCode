@@ -209,6 +209,7 @@
         android:background="@color/transparent"
         android:inputType="textEmailAddress"
         android:padding="@dimen/email_padding"
+        android:cursorVisible="false"
         android:text=""
         android:textColor="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"

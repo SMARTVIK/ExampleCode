@@ -18,6 +18,7 @@ import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.R;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.util.ApiUtil;
+import com.spf.panditji.util.Constants;
 import com.spf.panditji.view.SignInActivity;
 import com.spf.panditji.view.SignUpActivity;
 
@@ -56,11 +57,10 @@ public class MyAccountFragment extends Fragment {
         view.findViewById(R.id.go_to_sign_in).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!ApplicationDataController.getInstance().isUserSignedUp()) {
-                    startActivity(new Intent(getContext(), SignUpActivity.class).putExtra("sign_in_internally",true));
+                if (!ApplicationDataController.getInstance().isUserLoggedIn()) {
+                    startActivity(new Intent(getContext(), SignInActivity.class).putExtra(Constants.OPEN_BOOKING,true));
                     return;
                 }
-                startActivity(new Intent(getContext(), SignInActivity.class));
             }
         });
     }

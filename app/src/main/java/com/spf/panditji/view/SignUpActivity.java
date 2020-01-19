@@ -4,12 +4,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.R;
@@ -29,6 +31,11 @@ public class SignUpActivity extends AppCompatActivity {
     EditText name,email,phone,password,confirmPassword;
     private boolean openBookingScreen;
     private boolean signInInternally;
+    private String userName;
+    private String pass;
+    private String nameString;
+    private String mobileString;
+    ProgressDialog progressDialog;
 
 
     @Override
@@ -36,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        if(getIntent().hasExtra("show_signin")){
+        if(getIntent().hasExtra(Constants.OPEN_BOOKING)){
             findViewById(R.id.sign_in_text).setVisibility(View.GONE);
             openBookingScreen = true;
         }
@@ -52,6 +59,10 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if (!isValidInput()) {
+                    return;
+                }
+
                 showLoader();
 
                 ApiUtil.getInstance().signUpApi(
@@ -64,23 +75,58 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<SignUp> call, Response<SignUp> response) {
                                 L.d("SignUp successful "+response.body().getSuccess());
-                                ApplicationDataController.getInstance().setUserSignUp(true);
-                                if (openBookingScreen || signInInternally) {
-                                    startActivityForResult(new Intent(SignUpActivity.this, VerifyEmailActivity.class).putExtra("mobile",phone.getText().toString().trim()), VERIFY_OTP);
+                                if (response.code() == 200 && response.body().getSuccess() == 1) {
+                                    ApplicationDataController.getInstance().setUserSignUp(true);
+                                    userName = email.getText().toString();
+                                    pass = password.getText().toString();
+                                    nameString = name.getText().toString();
+                                    mobileString = phone.getText().toString();
+                                    startActivityForResult(new Intent(SignUpActivity.this, VerifyEmailActivity.class).putExtra("mobile", phone.getText().toString().trim()), VERIFY_OTP);
                                 } else {
-                                    startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
+                                    L.d(" response is not successfull");
                                 }
+
+                                progressDialog.dismiss();
                             }
 
                             @Override
                             public void onFailure(Call<SignUp> call, Throwable t) {
                                 Log.d("onFailure", t.getMessage() + "");
+                                progressDialog.dismiss();
                             }
                         });
-
             }
         });
 
+    }
+
+    private boolean isValidInput() {
+        boolean result = true;
+        if (name.getText().toString().isEmpty()) {
+            name.setError("Can not be empty");
+            name.requestFocus();
+            result = false;
+        } else if (email.getText().toString().isEmpty()) {
+            email.setError("Can not be empty");
+            email.requestFocus();
+            result = false;
+        } else if (phone.getText().toString().isEmpty()) {
+            phone.setError("Can not be empty");
+            phone.requestFocus();
+            result = false;
+        } else if (password.getText().toString().isEmpty()) {
+            password.setError("Can not be empty");
+            password.requestFocus();
+            result = false;
+        } else if (confirmPassword.getText().toString().isEmpty()) {
+            confirmPassword.setError("Can not be empty");
+            confirmPassword.requestFocus();
+            result = false;
+        } else if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
+            Toast.makeText(this, "password and confirm password should be same", Toast.LENGTH_LONG).show();
+            result = false;
+        }
+        return result;
     }
 
 
@@ -90,34 +136,37 @@ public class SignUpActivity extends AppCompatActivity {
 
         if(requestCode == VERIFY_OTP && resultCode == Activity.RESULT_OK){
             if(openBookingScreen || signInInternally){
-                goForInternallySignIn(email.getText().toString(),password.getText().toString(),openBookingScreen);
+                goForInternallySignIn(userName,pass,openBookingScreen);
             }
         }
 
     }
 
-    private void goForInternallySignIn(String user, String pass, final boolean openBookingScreen) {
+    private void goForInternallySignIn(final String user, final String pass, final boolean openBookingScreen) {
 
         ApiUtil.getInstance().signIn(user, pass, new Callback<SignInResponse>() {
 
             @Override
             public void onResponse(Call<SignInResponse> call, Response<SignInResponse> response) {
-                SharedPreferences sharedPreferences = VadikSewaApplication.getInstance().getSharedPrefs();
-                sharedPreferences.edit().putString("user_id",response.body().getUser_id());
-                sharedPreferences.edit().putString("name",name.getText().toString());
-                sharedPreferences.edit().putString("email",email.getText().toString());
-                sharedPreferences.edit().putString("mobile",phone.getText().toString());
-                sharedPreferences.edit().putString("password",password.getText().toString());
 
-                L.d("SignIn Successful "+response.body().getSuccess());
+                if (response.code() == 200 && response.body().getSuccess() == 1) {
+                    SharedPreferences sharedPreferences = VadikSewaApplication.getInstance().getSharedPrefs();
+                    sharedPreferences.edit().putString("user_id", response.body().getUser_id());
+                    sharedPreferences.edit().putString("name", nameString);
+                    sharedPreferences.edit().putString("email", user);
+                    sharedPreferences.edit().putString("mobile", mobileString);
+                    sharedPreferences.edit().putString("password", pass);
 
-                ApplicationDataController.getInstance().setUserLoggedIn(true);
-                ApplicationDataController.getInstance().setUserId(response.body().getUser_id());
-                ApplicationDataController.getInstance().setCurrentUserResponse(response.body());
-                if (openBookingScreen) {
-                    setResult(Activity.RESULT_OK, new Intent().putExtra("user_id", response.body().getUser_id()));
+                    L.d("SignIn Successful " + response.body().getSuccess());
+
+                    ApplicationDataController.getInstance().setUserLoggedIn(true);
+                    ApplicationDataController.getInstance().setUserId(response.body().getUser_id());
+                    ApplicationDataController.getInstance().setCurrentUserResponse(response.body());
+                    if (openBookingScreen) {
+                        setResult(Activity.RESULT_OK, new Intent().putExtra("user_id", response.body().getUser_id()));
+                    }
+                    finish();
                 }
-                finish();
             }
 
             @Override
@@ -125,8 +174,6 @@ public class SignUpActivity extends AppCompatActivity {
                 L.d("onFailure "+t.getMessage());
             }
         });
-
-
     }
 
     private void initViews() {
@@ -138,6 +185,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void showLoader() {
-
+        progressDialog = ProgressDialog.show(this, "","Please Wait...", true);
     }
 }

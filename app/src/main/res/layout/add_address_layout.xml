@@ -43,36 +43,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="Address"
-            android:textSize="@dimen/text_email"
-            android:textColor="@color/lightGrey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
         <EditText
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
             android:textColor="@color/darkBlack"
-            android:hint="House number, Building number, etc"
+            android:hint="Name"
+            android:padding="@dimen/email_padding"
+            android:background="@drawable/email_bg"
+            android:id="@+id/name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/darkBlack"
+            android:hint="House ,street, etc"
             android:padding="@dimen/email_padding"
             android:background="@drawable/email_bg"
             android:id="@+id/address_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_marginTop="@dimen/margin_top_sign_up"
-            android:text="City"
-            android:textSize="@dimen/text_email"
-            android:textColor="@color/lightGrey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
         <EditText
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/margin_top"
             android:layout_marginLeft="5dp"
             android:textColor="@color/darkBlack"
             android:hint="City"
@@ -82,17 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_marginTop="@dimen/margin_top_sign_up"
-            android:text="State"
-            android:textSize="@dimen/text_email"
-            android:textColor="@color/lightGrey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
         <EditText
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/margin_top"
             android:layout_marginLeft="5dp"
             android:textColor="@color/darkBlack"
             android:hint="State"
@@ -102,17 +88,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_marginTop="@dimen/margin_top_sign_up"
-            android:text="Landmark"
-            android:textSize="@dimen/text_email"
-            android:textColor="@color/lightGrey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
         <EditText
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/margin_top"
             android:layout_marginLeft="5dp"
             android:textColor="@color/darkBlack"
             android:hint="Landmark"
@@ -122,17 +99,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:layout_marginTop="@dimen/margin_top_sign_up"
-            android:text="Pin"
-            android:textSize="@dimen/text_email"
-            android:textColor="@color/lightGrey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
         <EditText
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/margin_top"
             android:layout_marginLeft="5dp"
             android:textColor="@color/darkBlack"
             android:hint="Pin-Code"
@@ -145,6 +113,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:layout_marginBottom="15dp"
             android:id="@+id/add_button"
             android:padding="15dp"
             android:fontFamily="sans-serif-medium"

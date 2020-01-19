@@ -21,9 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.spf.panditji.R;
 import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.CategoryModel;
+import com.spf.panditji.model.PagerModel;
 import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.model.PopularPoojaModel;
 import com.spf.panditji.util.ApiUtil;
@@ -32,8 +34,10 @@ import com.spf.panditji.view.DetailScreen;
 import com.spf.panditji.view.PanditProfile;
 import com.spf.panditji.view.PopularPoojaAdapter;
 import com.spf.panditji.view.RoundImageAdapter;
+import com.spf.panditji.view.RoundRectCornerImageView;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import ir.apend.slider.model.Slide;
@@ -48,7 +52,7 @@ public class HomeFragment extends Fragment {
     private PopularPoojaAdapter popularPoojaAdapter;
     private PopularPanditAdapter popularPanditAdapter;
     private List<CategoryModel> categoriesList;
-
+    private List<PagerModel> pageModels = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,14 +63,37 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        setUpViewPager(view);
         setUpBookByCategory(view);
         setUpPopularPoojaList(view);
         setUpPopularPanditList(view);
 
+        getHomeCat(view);
         getBookByCategory();
         getPopularPoojaList();
         getPopularPanditList();
+    }
+
+    private void getHomeCat(final View view) {
+
+        ApiUtil.getInstance().getHomeCat(new Callback<List<PagerModel>>() {
+
+            @Override
+            public void onResponse(Call<List<PagerModel>> call, Response<List<PagerModel>> response) {
+                if (response.code() == 200 && response.isSuccessful()) {
+                    eventImagesUrl = response.body();
+                    setUpViewPager(view);
+                    homeViewPagerAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PagerModel>> call, Throwable t) {
+
+
+
+            }
+        });
+
     }
 
     private void initViews(View view) {
@@ -126,16 +153,13 @@ public class HomeFragment extends Fragment {
 
     private LinearLayout llPagerDots;
     private ViewPager viewPager;
-    private ArrayList<String> eventImagesUrl = new ArrayList<>();
+    private List<PagerModel> eventImagesUrl = new ArrayList<>();
     private HomeViewPagerAdapter homeViewPagerAdapter;
     private ImageView[] ivArrayDotsPager = new ImageView[3];
 
     public void setUpViewPager(View view) {
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
         llPagerDots = (LinearLayout) view.findViewById(R.id.pager_dots);
-        eventImagesUrl.add("");
-        eventImagesUrl.add("");
-        eventImagesUrl.add("");
         homeViewPagerAdapter = new HomeViewPagerAdapter(getContext(), eventImagesUrl);
         viewPager.setAdapter(homeViewPagerAdapter);
         setupPagerIndidcatorDots();
@@ -286,15 +310,33 @@ public class HomeFragment extends Fragment {
 
     private class HomeViewPagerAdapter extends PagerAdapter {
 
+        private List<PagerModel> eventImagesUrl;
 
-        public HomeViewPagerAdapter(Context context, ArrayList<String> eventImagesUrl) {
-
+        public HomeViewPagerAdapter(Context context, List<PagerModel> eventImagesUrl) {
+            this.eventImagesUrl = eventImagesUrl;
         }
 
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
             View view = LayoutInflater.from(container.getContext()).inflate(R.layout.pager_item,null);
+            final PagerModel pagerModel =  eventImagesUrl.get(position);
+            RoundRectCornerImageView imageView = view.findViewById(R.id.image);
+
+            String baseUrl = "https://vaidiksewa.in/img_big/";
+            Glide.with(getContext())
+                    .load(baseUrl+pagerModel.getImg())
+                    .into(imageView);
+            TextView textView = view.findViewById(R.id.pooja_name);
+            TextView bookNow = view.findViewById(R.id.book_now);
+            textView.setText(pagerModel.getName());
+            bookNow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    bookPooja(pagerModel);
+                }
+            });
+
             container.addView(view);
             return view;
         }
@@ -306,12 +348,16 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 3;
+            return eventImagesUrl.size();
         }
 
         @Override
         public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
         }
+    }
+
+    private void bookPooja(PagerModel pagerModel) {
+        startActivity(new Intent(getContext(), DetailScreen.class).putExtra("id",pagerModel.getId()));
     }
 }

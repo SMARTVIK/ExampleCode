@@ -20,14 +20,21 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.R;
+import com.spf.panditji.model.AddressModel;
 import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.BookingModel;
 import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.PujaDetailModel;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.util.ApiUtil;
+import com.spf.panditji.util.Constants;
+import com.spf.panditji.util.L;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -37,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CheckAvailabilityScreen extends AppCompatActivity {
+public class CheckAvailabilityScreen extends AppCompatActivity implements PaymentResultListener {
 
     private static final int SIGN_IN = 100;
     private static final int SIGN_UP = 101;
@@ -58,16 +65,24 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
     private AvailabilityModel availablePandit;
     private UserProfileModel userProfileModel;
     private int categoryId = 1;
+    private AddressModel selectedAddress;
+    private String bookingId;
+    private View addressLayout;
+    private TextView address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_availability_screen);
-
-
+        Checkout.preload(this);
+        userProfileModel = ApplicationDataController.getInstance().getCurrentUserProfile();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Details");
+
+        addressLayout = findViewById(R.id.address_layout);
+
+        address = findViewById(R.id.text);
 
         final Calendar c = Calendar.getInstance();
 
@@ -112,24 +127,66 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+                if(selectedDate == null){
+                    Toast.makeText(CheckAvailabilityScreen.this, "Select date first!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(selectedTime == null){
+                    Toast.makeText(CheckAvailabilityScreen.this, "Select time first!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(selectedAddress == null){
+                    if (!ApplicationDataController.getInstance().isUserLoggedIn()) {
+                        SignUpUser();
+                        return;
+                    }
+                    Toast.makeText(CheckAvailabilityScreen.this, "Select address first!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(panditSelected){
 
-                    if(!ApplicationDataController.getInstance().isUserSignedUp()){
+                    if (!ApplicationDataController.getInstance().isUserLoggedIn()) {
                         SignUpUser();
                         return;
                     }
 
-                    if (ApplicationDataController.getInstance().isUserLoggedIn()) {
+                    if(userProfileModel == null){
+
+                        ApiUtil.getInstance().getUserProfile(ApplicationDataController.getInstance().getUserId(), new Callback<List<UserProfileModel>>() {
+                            @Override
+                            public void onResponse(Call<List<UserProfileModel>> call, Response<List<UserProfileModel>> response) {
+
+                                if(response.code() == 200){
+
+                                    userProfileModel = response.body().get(0);
+
+                                    createOrder();
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<UserProfileModel>> call, Throwable t) {
+
+                            }
+                        });
+
+                    } else {
+
                         createOrder();
-                        return;
+
                     }
 
-                    startActivityForResult(new Intent(CheckAvailabilityScreen.this,SignInActivity.class),SIGN_IN);
-                }
-                else if(selectedDate!=null && selectedTime!=null){
 
-                    ApiUtil.getInstance().getPandit("Noida", selectedDate, pujaDetailModel.getTitle(), new Callback<AvailabilityModel>() {
+                }
+                else if (selectedDate != null && selectedTime != null && selectedAddress != null){
+                    String addressCity = selectedAddress.getCity();
+                    addressCity = addressCity.substring(0, 1).toUpperCase() + addressCity.substring(1);
+                    ApiUtil.getInstance().getPandit(addressCity, selectedDate, pujaDetailModel.getTitle(), new Callback<AvailabilityModel>() {
                         @Override
                         public void onResponse(Call<AvailabilityModel> call, Response<AvailabilityModel> response) {
                             availablePandit = response.body();
@@ -160,44 +217,90 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
                 startActivityForResult(new Intent(CheckAvailabilityScreen.this,SelectAddressScreen.class),SELECT_ADDRESS);
             }
         });
-
     }
 
+
+
     private void SignUpUser() {
-        startActivityForResult(new Intent(CheckAvailabilityScreen.this,SignUpActivity.class).putExtra("show_signin",false),SIGN_UP);
+        startActivityForResult(new Intent(CheckAvailabilityScreen.this,SignInActivity.class).putExtra("show_signin",false),SIGN_UP);
     }
 
     private void createOrder() {
         BookingModel bookingModel = new BookingModel();
         bookingModel.setBooking_id("");
         bookingModel.setCat(categoryId);
-        bookingModel.setEmail("abc@gmail.com");
-        bookingModel.setCity("New Delhi");
-        bookingModel.setLandmark("Swaraj Colony");
-        bookingModel.setMobile("9999887766");
-        bookingModel.setState("Delhi");
-        bookingModel.setAddress("b10");
+        bookingModel.setEmail(userProfileModel.getEmail());
+        bookingModel.setCity(selectedAddress.getCity());
+        bookingModel.setLandmark(selectedAddress.getLandmark());
+        bookingModel.setMobile(userProfileModel.getMobile());
+        bookingModel.setState(selectedAddress.getState());
+        bookingModel.setAddress(selectedAddress.getAddress());
         bookingModel.setPandit(availablePandit.getName());
         bookingModel.setPandit_email(availablePandit.getEmail());
         bookingModel.setPandit_mobile(availablePandit.getMobile());
         bookingModel.setPooja(pujaDetailModel.getTitle());
         bookingModel.setPrice(pujaDetailModel.getPrice());
-        bookingModel.setPin("110030");
+        bookingModel.setPin(selectedAddress.getPin());
         bookingModel.setPooja_date(selectedDate);
         bookingModel.setPooja_time(selectedTime);
-        bookingModel.setUser_name("WWxjNWFreHRlSEJaVnpGdVVVZDBhMk4zUFQwPQ");
+        bookingModel.setUser_name(ApplicationDataController.getInstance().getUserId());
 
         Gson gson = new Gson();
         String json = gson.toJson(bookingModel);
 
         ApiUtil.getInstance().booking(json, new Callback<List<OrderModel>>() {
+
             @Override
             public void onResponse(Call<List<OrderModel>> call, Response<List<OrderModel>> response) {
 
-                Toast.makeText(CheckAvailabilityScreen.this, "booking done with booking id "+response.body().get(0).getBooking_id(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CheckAvailabilityScreen.this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+
+                if(response.code() == 200){
+
+                    bookingId = response.body().get(0).getBooking_id();
+
+                    Checkout checkout = new Checkout();
+
+                    /**
+                     * Set your logo here
+                     */
+                    checkout.setImage(R.mipmap.ic_launcher);
+
+                    /**
+                     * Reference to current activity
+                     */
+                    final Activity activity = CheckAvailabilityScreen.this;
+
+                    /**
+                     * Pass your payment options to the Razorpay Checkout as a JSONObject
+                     */
+                    try {
+                        JSONObject options = new JSONObject();
+                        /**
+                         * Merchant Name
+                         * eg: Rentomojo || HasGeek etc.
+                         */
+                        options.put("name", "Vaidik Sewa");
+                        /**
+                         * Description can be anything
+                         * eg: Order #123123
+                         *     Invoice Payment
+                         *     etc.
+                         */
+                        options.put("description", "booking");
+                        options.put("order_id",bookingId);
+                        /**
+                         * Amount is always passed in PAISE
+                         * Eg: "500" = Rs 5.00
+                         */
+                        checkout.open(activity, options);
+                    } catch (Exception e) {
+                        L.d("Error in starting Razorpay Checkout "+e.getMessage());
+                    }
+
+
+                }
+
+
             }
 
             @Override
@@ -254,7 +357,6 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
         adapter.setData(keyPoints);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -269,6 +371,38 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
 
         }
 
+        if(requestCode == SELECT_ADDRESS && resultCode == Activity.RESULT_OK){
+
+            findViewById(R.id.available_pandit_view).setVisibility(View.GONE);
+
+            panditSelected = false;
+
+            availablePandit = null;
+
+            checkAvailability.setText("Check Availability");
+
+            selectedAddress = data.getParcelableExtra(Constants.SELECTED_ADDRESS);
+
+            addDataInAddressView();
+
+        }
+    }
+
+    private void addDataInAddressView() {
+
+        addressLayout.setVisibility(View.VISIBLE);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                address.setText(selectedAddress.getName() + "\n" +
+                        selectedAddress.getAddress() + "\n"
+                        + selectedAddress.getCity() + "\n"
+                        + selectedAddress.getState() + "\n"
+                        + selectedAddress.getLandmark() + "\n"
+                        + selectedAddress.getPin());
+            }
+        });
 
     }
 
@@ -292,6 +426,20 @@ public class CheckAvailabilityScreen extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+
+
+        L.d("status "+s);
+
+
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
 
     }
 }

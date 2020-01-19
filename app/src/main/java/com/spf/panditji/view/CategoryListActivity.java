@@ -3,9 +3,14 @@ package com.spf.panditji.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,9 +40,15 @@ public class CategoryListActivity extends AppCompatActivity {
 
         setUpList();
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("Pooja List");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         getListByCategory(getIntent().getStringExtra("cat"));
-
     }
 
     private void getListByCategory(String cat) {
@@ -77,5 +88,18 @@ public class CategoryListActivity extends AppCompatActivity {
         });
         recyclerView.addItemDecoration(new SpacesItemDecoration(30));
         recyclerView.setAdapter(categoriesAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+
     }
 }

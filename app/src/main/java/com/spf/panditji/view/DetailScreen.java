@@ -1,6 +1,7 @@
 package com.spf.panditji.view;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -47,6 +48,7 @@ public class DetailScreen extends AppCompatActivity {
     TextView name,amount,description,nextButton;
     private ImageView imageView;
     private PujaDetailModel pujaDetailModel;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,6 @@ public class DetailScreen extends AppCompatActivity {
         setContentView(R.layout.activity_detail_screen);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         initViews();
 
         String id = getIntent().getStringExtra("id");
@@ -71,6 +72,7 @@ public class DetailScreen extends AppCompatActivity {
         amount = findViewById(R.id.amount);
         description = findViewById(R.id.description);
         imageView = findViewById(R.id.main_image);
+        nextButton.setEnabled(false);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
 
@@ -165,13 +167,18 @@ public class DetailScreen extends AppCompatActivity {
 
     private void getPujaDetailsFromServer(String id) {
 
+        progressDialog = ProgressDialog.show(this, "","Please Wait...", true);
+
         ApiUtil.getInstance().getPujaDetails(id, new Callback<List<PujaDetailModel>>() {
             @Override
             public void onResponse(Call<List<PujaDetailModel>> call, Response<List<PujaDetailModel>> response) {
 
+                progressDialog.dismiss();
+                nextButton.setEnabled(true);
                 pujaDetailModel = response.body().get(0);
-
-                name.setText(pujaDetailModel.getTitle());
+                getSupportActionBar().setTitle(pujaDetailModel.getTitle());
+//                name.setText(pujaDetailModel.getTitle());
+                name.setVisibility(View.GONE);
                 amount.setText("₹"+pujaDetailModel.getPrice());
                 description.setText(pujaDetailModel.getDescription());
                 String baseUrl = "https://vaidiksewa.in/img_big/";
@@ -184,6 +191,7 @@ public class DetailScreen extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<PujaDetailModel>> call, Throwable t) {
                 Log.d("onFailaure" , t.getMessage());
+                progressDialog.dismiss();
             }
         });
     }

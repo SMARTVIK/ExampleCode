@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
+import com.spf.panditji.ApplicationDataController
 import com.spf.panditji.R
 import ir.apend.slider.model.Slide
 import java.util.ArrayList
@@ -22,12 +23,10 @@ import java.util.ArrayList
 class HomeActivity : AppCompatActivity() {
 
     private var appBarConfiguration : AppBarConfiguration ? = null
-    private var pager : ViewPager ? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         setUpDrawerLayout()
 
     }
@@ -48,6 +47,14 @@ class HomeActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navigationController, appBarConfiguration!!)
         navView.setupWithNavController(navigationController)
+
+        var view : View = navView.getHeaderView(0);
+
+        if(!ApplicationDataController.getInstance().isUserLoggedIn){
+            view.findViewById<View>(R.id.profile).visibility = View.GONE
+            view.findViewById<View>(R.id.go_to_sign_in).visibility = View.VISIBLE
+        }
+
 
     }
 

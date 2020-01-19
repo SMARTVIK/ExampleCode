@@ -1,6 +1,9 @@
 package com.spf.panditji.model;
 
-public class AddressModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AddressModel implements Parcelable {
 
 
     /**
@@ -20,6 +23,28 @@ public class AddressModel {
     private String city;
     private String pin;
     private String landmark;
+
+    protected AddressModel(Parcel in) {
+        address_id = in.readString();
+        name = in.readString();
+        address = in.readString();
+        state = in.readString();
+        city = in.readString();
+        pin = in.readString();
+        landmark = in.readString();
+    }
+
+    public static final Creator<AddressModel> CREATOR = new Creator<AddressModel>() {
+        @Override
+        public AddressModel createFromParcel(Parcel in) {
+            return new AddressModel(in);
+        }
+
+        @Override
+        public AddressModel[] newArray(int size) {
+            return new AddressModel[size];
+        }
+    };
 
     public String getAddress_id() {
         return address_id;
@@ -75,5 +100,21 @@ public class AddressModel {
 
     public void setLandmark(String landmark) {
         this.landmark = landmark;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(address_id);
+        parcel.writeString(name);
+        parcel.writeString(address);
+        parcel.writeString(state);
+        parcel.writeString(city);
+        parcel.writeString(pin);
+        parcel.writeString(landmark);
     }
 }

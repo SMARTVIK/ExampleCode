@@ -1,5 +1,7 @@
 package com.spf.panditji.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +21,7 @@ import com.spf.panditji.R;
 import com.spf.panditji.model.AddressModel;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.util.ApiUtil;
+import com.spf.panditji.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +44,7 @@ public class SelectAddressScreen extends AppCompatActivity {
         setTitle("Select Address");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setUpListView();
+        getAllAddresses(ApplicationDataController.getInstance().getUserId());
     }
 
     private void setUpListView() {
@@ -48,6 +53,7 @@ public class SelectAddressScreen extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         addressAdapter = new AddressAdapter();
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,RecyclerView.VERTICAL));
         recyclerView.setAdapter(addressAdapter);
         addressAdapter.setData(addresses);
     }
@@ -60,37 +66,57 @@ public class SelectAddressScreen extends AppCompatActivity {
 
         final AlertDialog alertDialog = dialogBuilder.create();
 
+        alertDialog.show();
+
+        final EditText name = dialogView.findViewById(R.id.name_edit_text);
         final EditText address = dialogView.findViewById(R.id.address_edit_text);
         final EditText city = dialogView.findViewById(R.id.city_edit_text);
         final EditText state = dialogView.findViewById(R.id.state_edit_text);
         final EditText landmark = dialogView.findViewById(R.id.landmark_edit_text);
         final EditText pincode = dialogView.findViewById(R.id.pincode_edit_text);
 
+        dialogView.findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
 
         dialogView.findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(address.getText().toString().isEmpty()){
+                if (name.getText().toString().isEmpty()) {
+                    name.setError("Can not be empty");
+                    name.requestFocus();
+                    return;
+                } else if (address.getText().toString().isEmpty()) {
                     address.setError("Can not be empty");
                     address.requestFocus();
-                }else if(city.getText().toString().isEmpty()){
+                    return;
+                } else if (city.getText().toString().isEmpty()) {
                     city.setError("Can not be empty");
                     city.requestFocus();
-                }else if(state.getText().toString().isEmpty()){
+                    return;
+                } else if (state.getText().toString().isEmpty()) {
                     state.setError("Can not be empty");
                     state.requestFocus();
-                }else if(landmark.getText().toString().isEmpty()){
+                    return;
+                } else if (landmark.getText().toString().isEmpty()) {
                     landmark.setError("Can not be empty");
                     landmark.requestFocus();
-                }else if(pincode.getText().toString().isEmpty()){
+                    return;
+                } else if (pincode.getText().toString().isEmpty()) {
                     pincode.setError("Can not be empty");
                     pincode.requestFocus();
+                    return;
+                }else if(pincode.getText().toString().length()<6){
+                    pincode.setError("invalid pin code");
+                    pincode.requestFocus();
+                    return;
                 }
 
-                UserProfileModel userProfileModel = ApplicationDataController.getInstance().getCurrentUserProfile();
-
-                ApiUtil.getInstance().addAddress(userProfileModel.getName(),ApplicationDataController.getInstance().getUserId(),
+                ApiUtil.getInstance().addAddress(name.getText().toString().trim(),ApplicationDataController.getInstance().getUserId(),
 
                         address.getText().toString(),
                         city.getText().toString().trim(),
@@ -132,5 +158,10 @@ public class SelectAddressScreen extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setSelectedAddress(AddressModel addressModel) {
+        setResult(Activity.RESULT_OK,new Intent().putExtra(Constants.SELECTED_ADDRESS,addressModel));
+        finish();
     }
 }

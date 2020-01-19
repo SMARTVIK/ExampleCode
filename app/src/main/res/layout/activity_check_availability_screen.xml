@@ -79,10 +79,10 @@
             <TextView
                 android:id="@+id/select_date"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/toolbar_gradient_round"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
@@ -94,19 +94,18 @@
             <TextView
                 android:id="@+id/select_time"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/toolbar_gradient_round"
                 android:fontFamily="sans-serif-medium"
-                android:padding="10dp"
                 android:gravity="center"
+                android:padding="10dp"
                 android:text="Select Time"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
-
 
 
         </LinearLayout>
@@ -119,21 +118,21 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:background="@drawable/round_18"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:padding="10dp"
-                android:visibility="gone"
                 android:id="@+id/available_pandit_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/round_18"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:visibility="gone">
 
 
                 <TextView
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:background="@drawable/toolbar_gradient_round"
                     android:fontFamily="sans-serif-medium"
                     android:padding="10dp"
@@ -231,19 +230,67 @@
 
             </LinearLayout>
 
+            <RelativeLayout
+                android:background="@drawable/round_18"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Selected City"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_height="wrap_content"/>
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/select_address"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:background="@drawable/toolbar_gradient_round"
                 android:fontFamily="sans-serif-medium"
-                android:padding="10dp"
                 android:gravity="center"
+                android:padding="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="Select Address"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
+
+            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/address_layout"
+                android:visibility="gone"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white">
+
+                <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:padding="15dp"
+                        android:text="address text"
+                        android:textColor="@color/darkBlack"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/next"
@@ -258,7 +305,6 @@
                 android:text="Check Availability"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
-
 
         </LinearLayout>
 

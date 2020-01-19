@@ -8,7 +8,15 @@
         android:padding="20dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+
+    <LinearLayout
+        android:id="@+id/profile"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView"
             android:layout_gravity="center"
             app:civ_border_width="1dp"
@@ -18,7 +26,7 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/email_bg" />
 
-    <TextView
+        <TextView
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,12 +34,29 @@
             android:layout_gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
+        <TextView
             android:layout_marginTop="5dp"
             android:id="@+id/textView"
             android:text="vps@gmail.com"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-           />
+            />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:gravity="center"
+        android:id="@+id/go_to_sign_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="@drawable/toolbar_gradient_round"
+        android:padding="10dp"
+        android:text="Sign In First"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
 
 </LinearLayout>
