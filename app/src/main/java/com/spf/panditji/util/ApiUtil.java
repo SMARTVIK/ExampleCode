@@ -17,6 +17,7 @@ import com.spf.panditji.model.PujaDetailModel;
 import com.spf.panditji.model.PujaModel;
 import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
+import com.spf.panditji.model.SuccessModel;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.view.AddressResponse;
 
@@ -239,5 +240,17 @@ public class ApiUtil {
         final RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE),requestString.getBytes());
         Call<List<BookingListModel>> call = this.getApi().getBookings(requestBody);
         call.enqueue(listCallback);
+    }
+
+    public void sendSuccess(String booking, String status, Callback<SuccessModel> successModelCallback) {
+
+        Map<String, String> values = new HashMap<>();
+        values.put("order_id",booking);
+        values.put("status",status);
+        String requestString = new JSONObject(values).toString();
+        final RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE),requestString.getBytes());
+        Call<SuccessModel> call = this.getApi().success(requestBody);
+        call.enqueue(successModelCallback);
+
     }
 }

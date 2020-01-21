@@ -14,6 +14,7 @@ import com.spf.panditji.model.PujaDetailModel;
 import com.spf.panditji.model.PujaModel;
 import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.SignUp;
+import com.spf.panditji.model.SuccessModel;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.view.AddressResponse;
 
@@ -74,4 +75,7 @@ public interface WebApi {
 
     @POST("booking_history")
     Call<List<BookingListModel>> getBookings(@Body RequestBody userId);
+
+    @POST("success")
+    Call<SuccessModel> success(@Body RequestBody userId);
 }

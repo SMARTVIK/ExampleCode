@@ -1,5 +1,6 @@
 package com.spf.panditji.view.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -54,6 +55,8 @@ public class HomeFragment extends Fragment {
     private PopularPanditAdapter popularPanditAdapter;
     private List<CategoryModel> categoriesList;
     private List<PagerModel> pageModels = new ArrayList<>();
+    private ProgressDialog progressDialog;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,7 +70,7 @@ public class HomeFragment extends Fragment {
         setUpBookByCategory(view);
         setUpPopularPoojaList(view);
         setUpPopularPanditList(view);
-
+        showProgressDialog();
         getHomeCat(view);
         getBookByCategory();
         getPopularPoojaList();
@@ -89,13 +92,27 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<PagerModel>> call, Throwable t) {
-
-
-
+                hideLoader();
             }
         });
 
     }
+
+
+    private void showProgressDialog() {
+        if(progressDialog == null){
+            progressDialog = ProgressDialog.show(getContext(),"Please wait..","",false);
+        }else{
+            progressDialog.show();
+        }
+    }
+
+    private void hideLoader() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
 
     private void initViews(View view) {
         TextView viewAllCategory = view.findViewById(R.id.view_all_bbc);
@@ -137,16 +154,15 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onResponse(Call<List<PopularPanditModel>> call, Response<List<PopularPanditModel>> response) {
-
+                hideLoader();
                 if(response.isSuccessful() && response.code() == 200){
                     popularPanditAdapter.setData(response.body());
                 }
-
             }
 
             @Override
             public void onFailure(Call<List<PopularPanditModel>> call, Throwable t) {
-
+                hideLoader();
             }
         });
 
@@ -209,7 +225,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<PopularPoojaModel>> call, Throwable t) {
-
+               hideLoader();
             }
         });
 
@@ -231,7 +247,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<CategoryModel>> call, Throwable t) {
-
+                      hideLoader();
             }
         });
     }

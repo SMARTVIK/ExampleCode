@@ -22,6 +22,7 @@ import com.spf.panditji.model.AddressModel;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.util.ApiUtil;
 import com.spf.panditji.util.Constants;
+import com.spf.panditji.util.L;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +142,11 @@ public class SelectAddressScreen extends AppCompatActivity {
     }
 
     private void getAllAddresses(String userId) {
+
+        if(userId == null){
+            L.d("getAllAddresses : userid was null");
+            return;
+        }
 
         ApiUtil.getInstance().getAllAddresses(userId, new Callback<List<AddressModel>>() {
             @Override

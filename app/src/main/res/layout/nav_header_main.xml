@@ -21,9 +21,9 @@
             android:layout_gravity="center"
             app:civ_border_width="1dp"
             app:civ_border_color="@color/reddish"
-            android:src="@drawable/abhilash"
+            android:src="@drawable/icon"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             app:srcCompat="@drawable/email_bg" />
 
         <TextView

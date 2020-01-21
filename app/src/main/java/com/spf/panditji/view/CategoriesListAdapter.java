@@ -24,7 +24,6 @@ class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAdapter.I
 
     public CategoriesListAdapter(OnItemClick<PujaModel> onItemClick) {
          this.itemClick = onItemClick;
-
     }
 
     @NonNull

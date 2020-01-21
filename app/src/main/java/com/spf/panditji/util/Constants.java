@@ -12,4 +12,5 @@ public class Constants {
     public static final String OPEN_BOOKING = "open_booking";
     public static final String USER_ID = "user_id";
     public static final String SELECTED_ADDRESS = "selected_address";
+    public static final String TITLE = "title";
 }

@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -33,6 +34,7 @@ import com.spf.panditji.model.AvailabilityModel;
 import com.spf.panditji.model.BookingModel;
 import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.PujaDetailModel;
+import com.spf.panditji.model.SuccessModel;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.util.ApiUtil;
 import com.spf.panditji.util.Constants;
@@ -124,12 +126,13 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         });
 
         final List<String> list = new ArrayList<String>();
-        list.add("Select");
+
         list.add("Noida");
         list.add("Delhi");
         list.add("Prayagraj");
         list.add("G. Noida");
         list.add("Gururam");
+        list.add("Select");
 
         Spinner spinner_1 = (Spinner) findViewById(R.id.spinner);
         spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -157,9 +160,31 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,list) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View v = super.getView(position, convertView, parent);
+                if (position == getCount()) {
+                    ((TextView)v.findViewById(android.R.id.text1)).setText("");
+//                    ((TextView)v.findViewById(android.R.id.text1)).setHint(getItem(getCount())); //"Hint to be displayed"
+                }
+
+                return v;
+            }
+
+            @Override
+            public int getCount() {
+                return super.getCount()-1; // you dont display last item. It is used as hint.
+            }
+
+        };
+
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_1.setAdapter(adapter);
+        spinner_1.setSelection(adapter.getCount());
 
         selectTime = findViewById(R.id.select_time);
         selectTime.setOnClickListener(new View.OnClickListener() {
@@ -273,6 +298,11 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
             @Override
             public void onClick(View view) {
 
+                if(ApplicationDataController.getInstance().getUserId()==null){
+                    SignUpUser();
+                    return;
+                }
+
                 startActivityForResult(new Intent(CheckAvailabilityScreen.this, SelectAddressScreen.class), SELECT_ADDRESS);
 
             }
@@ -300,7 +330,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
 
     private void SignUpUser() {
-        startActivityForResult(new Intent(CheckAvailabilityScreen.this,SignInActivity.class).putExtra("show_signin",false),SIGN_UP);
+        startActivityForResult(new Intent(CheckAvailabilityScreen.this,SignInActivity.class).putExtra(Constants.OPEN_BOOKING,true),SIGN_UP);
     }
 
     private void createOrder() {
@@ -323,6 +353,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         bookingModel.setPooja_time(selectedTime);
         bookingModel.setUser_id(ApplicationDataController.getInstance().getUserId());
         bookingModel.setUser_name(userProfileModel.getName());
+        bookingModel.setOther_price("0");
 
         Gson gson = new Gson();
         String json = gson.toJson(bookingModel);
@@ -362,7 +393,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                          * Merchant Name
                          * eg: Rentomojo || HasGeek etc.
                          */
-                        options.put("name", "Vaidik Sewa");
+                        options.put("name", "Jet Hat");
                         /**
                          * Description can be anything
                          * eg: Order #123123
@@ -370,8 +401,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                          *     etc.
                          */
                         options.put("description", bookingId);
-                        options.put("order_id",bookingId);
-                        options.put("merchant_id","E1GIemq6tiF1r2");
+//                        options.put("order_id",bookingId);
+//                        options.put("merchant_id","E1GIemq6tiF1r2");
                         options.put("currency", "INR");
                         options.put("amount", ""+pujaDetailModel.getPrice());
                         /**
@@ -479,6 +510,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                         + selectedAddress.getState() + "\n"
                         + selectedAddress.getLandmark() + "\n"
                         + selectedAddress.getPin());
+
+                addressButton.setText("Change Address");
             }
         });
 
@@ -513,6 +546,23 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         hideLoader();
 
         L.d("status "+s);
+
+        ApiUtil.getInstance().sendSuccess(bookingId,(s!=null ? "success":"failed"),new Callback<SuccessModel>() {
+
+            @Override
+            public void onResponse(Call<SuccessModel> call, Response<SuccessModel> response) {
+
+                if (response.body().getError()==0){
+                    startActivity(new Intent(CheckAvailabilityScreen.this,HomeActivity.class).putExtra(Constants.OPEN_BOOKING,true));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<SuccessModel> call, Throwable t) {
+
+            }
+        });
 
     }
 

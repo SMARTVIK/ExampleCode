@@ -22,6 +22,7 @@ import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.PujaModel;
 import com.spf.panditji.util.ApiUtil;
+import com.spf.panditji.util.Constants;
 import com.spf.panditji.view.fragment.ViewAllCategories;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Pooja List");
+        setTitle(getIntent().getStringExtra(Constants.TITLE));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

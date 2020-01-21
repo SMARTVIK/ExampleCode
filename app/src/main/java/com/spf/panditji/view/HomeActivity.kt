@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
 import com.spf.panditji.ApplicationDataController
 import com.spf.panditji.R
+import com.spf.panditji.util.Constants
 import ir.apend.slider.model.Slide
 import java.util.ArrayList
 
@@ -71,6 +72,12 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
+
+        if(intent.hasExtra(Constants.OPEN_BOOKING)){
+
+            
+
+        }
 
     }
 

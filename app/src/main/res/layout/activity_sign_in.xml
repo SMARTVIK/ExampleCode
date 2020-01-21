@@ -71,7 +71,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/email_bg"
             android:padding="@dimen/email_padding"
-            android:hint="vps@gmail.com"
+            android:hint="Enter Email"
             android:textColor="@color/darkBlack" />
 
         <TextView
@@ -96,7 +96,7 @@
                 android:background="@drawable/email_bg"
                 android:inputType="numberPassword"
                 android:padding="@dimen/email_padding"
-                android:hint="1234567"
+                android:hint="Enter Password"
                 android:textColor="@color/darkBlack" />
 
 
