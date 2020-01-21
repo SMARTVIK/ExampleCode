@@ -24,6 +24,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.R;
+import com.spf.panditji.util.ApiUtil;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -40,6 +41,7 @@ public class SplashActivity extends Activity {
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     private Location mCurrentLocation;
+    private boolean dontStart;
 
     private void createLocationRequest() {
         mLocationRequest = new LocationRequest();
@@ -52,17 +54,18 @@ public class SplashActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        if(ApplicationDataController.getInstance().getUserId()!=null){
+            ApiUtil.getInstance().getUserProfile(ApplicationDataController.getInstance().getUserId());
+        }
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (!checkPermissions()) {
-            requestPermissions();
-        }else{
-            startLocationUpdates();
-        }
+        checkAndLoad();
     }
 
     private boolean checkPermissions() {
@@ -83,6 +86,11 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                dontStart = true;
+                if(mFusedLocationClient!=null && mLocationCallback!=null){
+                    mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                }
+                finish();
                 startActivity(new Intent(SplashActivity.this, HomeActivity.class));
             }
         }, 2000);
@@ -91,6 +99,15 @@ public class SplashActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+
+        if(mFusedLocationClient!=null && mLocationCallback!=null){
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
 
         if(mFusedLocationClient!=null && mLocationCallback!=null){
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
@@ -127,7 +144,9 @@ public class SplashActivity extends Activity {
                 super.onLocationResult(locationResult);
                 mCurrentLocation = locationResult.getLastLocation();
                 ApplicationDataController.getInstance().setLastKnownLocation(mCurrentLocation);
-                checkAndLoad();
+                if(!dontStart){
+                    checkAndLoad();
+                }
             }
         };
     }

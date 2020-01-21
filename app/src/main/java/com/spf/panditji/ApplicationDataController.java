@@ -3,18 +3,23 @@ package com.spf.panditji;
 import android.content.SharedPreferences;
 import android.location.Location;
 
+import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.SignInResponse;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.util.Constants;
+import com.spf.panditji.util.L;
 import com.spf.panditji.view.VadikSewaApplication;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class ApplicationDataController {
     private static final ApplicationDataController ourInstance = new ApplicationDataController();
     private SignInResponse currentUserResponse;
     private UserProfileModel currentUserProfile;
     private String userId;
+    private List<CategoryModel> categoriesList;
 
     public void setUserSignUp(boolean userSignUp) {
         isUserSignUp = userSignUp;
@@ -77,6 +82,7 @@ public class ApplicationDataController {
 
     public void setCurrentUserProfile(UserProfileModel currentUserProfile) {
         this.currentUserProfile = currentUserProfile;
+        L.d("Setting user profile");
     }
 
     public String getUserId() {
@@ -86,5 +92,13 @@ public class ApplicationDataController {
     public void setUserId(String userId) {
         this.userId = userId;
         VadikSewaApplication.getInstance().getSharedPrefs().edit().putString(Constants.USER_ID,userId).commit();
+    }
+
+    public void setCategoriesList(List<CategoryModel> categoriesList) {
+        this.categoriesList = categoriesList;
+    }
+
+    public List<CategoryModel> getCategoriesList() {
+        return categoriesList;
     }
 }

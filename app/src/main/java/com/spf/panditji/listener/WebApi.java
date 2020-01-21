@@ -2,6 +2,7 @@ package com.spf.panditji.listener;
 
 import com.spf.panditji.model.AddressModel;
 import com.spf.panditji.model.AvailabilityModel;
+import com.spf.panditji.model.BookingListModel;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.OtpResponse;
@@ -70,4 +71,7 @@ public interface WebApi {
 
     @POST("home_cat")
     Call<List<PagerModel>> getHomeCat();
+
+    @POST("booking_history")
+    Call<List<BookingListModel>> getBookings(@Body RequestBody userId);
 }

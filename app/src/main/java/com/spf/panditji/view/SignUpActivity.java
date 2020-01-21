@@ -164,6 +164,8 @@ public class SignUpActivity extends AppCompatActivity {
                     ApplicationDataController.getInstance().setCurrentUserResponse(response.body());
                     if (openBookingScreen) {
                         setResult(Activity.RESULT_OK, new Intent().putExtra("user_id", response.body().getUser_id()));
+                    }else{
+                        startActivity(new Intent(SignUpActivity.this,HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK));
                     }
                     finish();
                 }

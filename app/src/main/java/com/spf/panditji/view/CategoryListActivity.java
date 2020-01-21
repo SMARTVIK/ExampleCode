@@ -1,5 +1,7 @@
 package com.spf.panditji.view;
 
+import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +33,7 @@ import retrofit2.Response;
 public class CategoryListActivity extends AppCompatActivity {
 
     private CategoriesListAdapter categoriesAdapter;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +54,23 @@ public class CategoryListActivity extends AppCompatActivity {
         getListByCategory(getIntent().getStringExtra("cat"));
     }
 
+    private void hideLoader() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    private void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog.show(this, "", "Please Wait...", true);
+        } else {
+            progressDialog.show();
+        }
+    }
+
     private void getListByCategory(String cat) {
+
+         showProgressDialog();
 
         ApiUtil.getInstance().getListOfPujas(cat,new Callback<List<PujaModel>>() {
 
@@ -62,11 +81,13 @@ public class CategoryListActivity extends AppCompatActivity {
                     categoriesAdapter.setData(response.body());
                 }
 
+                hideLoader();
             }
 
             @Override
             public void onFailure(Call<List<PujaModel>> call, Throwable t) {
 
+                hideLoader();
             }
         });
     }

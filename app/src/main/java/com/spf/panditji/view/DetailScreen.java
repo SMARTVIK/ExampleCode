@@ -85,95 +85,14 @@ public class DetailScreen extends AppCompatActivity {
         });
     }
 
-    private void checkAvailability() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION);
-            } else {
-                checkingPanditAvailability();
-            }
-        } else {
-            checkingPanditAvailability();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            checkingPanditAvailability();
-        }
-    }
-
-    private void checkingPanditAvailability() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                            ApplicationDataController.getInstance().setLastKnownLocation(location);
-                        }
-                    }
-                });
-
-        String locationCity = "";
-        String date = "";
-        String poojaName = pujaDetailModel.getTitle();
-
-        if (ApplicationDataController.getInstance().getLocation() != null) {
-
-            Location location = ApplicationDataController.getInstance().getLocation();
-
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            List<Address> addresses = null;
-            try {
-                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if(addresses.size()>0){
-
-            locationCity = addresses.get(0).getAddressLine(0);
-
-            locationCity = locationCity.substring(0,1).toUpperCase() + locationCity.substring(1);
-
-            ApiUtil.getInstance().getPandit(locationCity,date,poojaName, new Callback<AvailabilityModel>() {
-
-                  @Override
-                  public void onResponse(Call<AvailabilityModel> call, Response<AvailabilityModel> response) {
-
-
-
-
-                  }
-
-                  @Override
-                  public void onFailure(Call<AvailabilityModel> call, Throwable t) {
-
-
-                  }
-              });
-
-            }
-
-        } else {
-
-        }
-    }
-
     private void getPujaDetailsFromServer(String id) {
 
-        progressDialog = ProgressDialog.show(this, "","Please Wait...", true);
+        showProgressDialog();
 
         ApiUtil.getInstance().getPujaDetails(id, new Callback<List<PujaDetailModel>>() {
             @Override
             public void onResponse(Call<List<PujaDetailModel>> call, Response<List<PujaDetailModel>> response) {
-
-                progressDialog.dismiss();
+                hideLoader();
                 nextButton.setEnabled(true);
                 pujaDetailModel = response.body().get(0);
                 getSupportActionBar().setTitle(pujaDetailModel.getTitle());
@@ -191,8 +110,22 @@ public class DetailScreen extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<PujaDetailModel>> call, Throwable t) {
                 Log.d("onFailaure" , t.getMessage());
-                progressDialog.dismiss();
+                hideLoader();
             }
         });
+    }
+
+    private void hideLoader() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    private void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog.show(this, "", "Please Wait...", true);
+        } else {
+            progressDialog.show();
+        }
     }
 }

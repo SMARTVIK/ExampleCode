@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.AdapterView
+import android.widget.TextView
 import androidx.annotation.IntegerRes
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -57,6 +58,11 @@ class HomeActivity : AppCompatActivity() {
         }else{
             view.findViewById<View>(R.id.profile).visibility = View.VISIBLE
             view.findViewById<View>(R.id.go_to_sign_in).visibility = View.GONE
+            var nameView : TextView = view.findViewById(R.id.name)
+            var emailView : TextView = view.findViewById(R.id.email)
+            var userProfileModel = ApplicationDataController.getInstance().currentUserProfile
+            nameView.text = userProfileModel?.name
+            emailView.text = userProfileModel?.email
         }
 
         view.findViewById<View>(R.id.go_to_sign_in).setOnClickListener {

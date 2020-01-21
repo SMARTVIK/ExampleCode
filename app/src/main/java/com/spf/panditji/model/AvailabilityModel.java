@@ -15,6 +15,16 @@ public class AvailabilityModel {
     private String email;
     private String mobile;
 
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    private String error;
+
     public String getPandit_id() {
         return pandit_id;
     }

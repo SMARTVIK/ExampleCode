@@ -40,6 +40,10 @@ public class MyAccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(!ApplicationDataController.getInstance().isUserLoggedIn()){
+            startActivity(new Intent(getContext(), SignInActivity.class));
+        }
+
         if (ApplicationDataController.getInstance().getCurrentUserProfile() != null) {
             view.findViewById(R.id.user_layout).setVisibility(View.VISIBLE);
             view.findViewById(R.id.go_to_sign_in).setVisibility(View.GONE);

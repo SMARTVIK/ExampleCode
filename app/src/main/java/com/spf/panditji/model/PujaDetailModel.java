@@ -52,6 +52,17 @@ public class PujaDetailModel implements Parcelable {
     private String star;
     private String img;
 
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
+
+    private String cat;
+
+
     protected PujaDetailModel(Parcel in) {
         id = in.readString();
         title = in.readString();
@@ -63,6 +74,7 @@ public class PujaDetailModel implements Parcelable {
         step = in.readString();
         star = in.readString();
         img = in.readString();
+        cat = in.readString();
     }
 
     public static final Creator<PujaDetailModel> CREATOR = new Creator<PujaDetailModel>() {
@@ -174,5 +186,6 @@ public class PujaDetailModel implements Parcelable {
         parcel.writeString(step);
         parcel.writeString(star);
         parcel.writeString(img);
+        parcel.writeString(cat);
     }
 }

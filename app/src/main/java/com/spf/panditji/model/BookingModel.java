@@ -26,8 +26,27 @@ public class BookingModel {
 
     private String booking_id;
     private String user_name;
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    private String user_id;
     private String pooja;
-    private int cat;
+
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
+
+    private String cat;
     private String other_price;
     private String price;
     private String address;
@@ -67,13 +86,7 @@ public class BookingModel {
         this.pooja = pooja;
     }
 
-    public int getCat() {
-        return cat;
-    }
 
-    public void setCat(int cat) {
-        this.cat = cat;
-    }
 
     public String getOther_price() {
         return other_price;

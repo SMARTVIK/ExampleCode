@@ -5,6 +5,7 @@ import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.listener.WebApi;
 import com.spf.panditji.model.AddressModel;
 import com.spf.panditji.model.AvailabilityModel;
+import com.spf.panditji.model.BookingListModel;
 import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.OrderModel;
 import com.spf.panditji.model.OtpResponse;
@@ -229,5 +230,14 @@ public class ApiUtil {
     public void getHomeCat(Callback<List<PagerModel>> pagerModelCallback) {
         Call<List<PagerModel>> call = this.getApi().getHomeCat();
         call.enqueue(pagerModelCallback);
+    }
+
+    public void getBookings(String userId,Callback<List<BookingListModel>> listCallback) {
+        Map<String, String> values = new HashMap<>();
+        values.put("user_id",userId);
+        String requestString = new JSONObject(values).toString();
+        final RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE),requestString.getBytes());
+        Call<List<BookingListModel>> call = this.getApi().getBookings(requestBody);
+        call.enqueue(listCallback);
     }
 }

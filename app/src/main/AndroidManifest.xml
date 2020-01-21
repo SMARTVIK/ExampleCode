@@ -3,9 +3,9 @@
     package="com.spf.panditji">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+-->
     <application
         android:name=".view.VadikSewaApplication"
         android:allowBackup="true"
@@ -63,7 +63,7 @@
 
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_5xno7jZgHv9CQYji2lnk0dDaI" />
+            android:value="rzp_test_56aLgbVJ0OiLnw" />
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -74,6 +75,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
     private View addressLayout;
     private TextView address;
     private String selectedCity;
+    private ProgressDialog progressDialog;
+    private TextView addressButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +88,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         setSupportActionBar(toolbar);
         setTitle("Details");
 
+        addressButton = findViewById(R.id.select_address);
+        disableAddressButton(false, R.drawable.toolbar_gradient_round_dis);
         addressLayout = findViewById(R.id.address_layout);
 
         address = findViewById(R.id.text);
@@ -131,8 +136,19 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                selectedCity = list.get(i);
+                    selectedCity = list.get(i);
 
+                    panditSelected = false;
+
+                    availablePandit = null;
+
+                    checkAvailability.setText("Check Availability");
+
+                    checkAvailability.setBackgroundResource(R.drawable.green_round);
+
+                    selectedAddress = null;
+
+                    disableAddressButton(false,R.drawable.toolbar_gradient_round_dis);
             }
 
             @Override
@@ -174,19 +190,14 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                     return;
                 }
 
-                if(selectedAddress == null){
-                    if (!ApplicationDataController.getInstance().isUserLoggedIn()) {
-                        SignUpUser();
-                        return;
-                    }
-                    Toast.makeText(CheckAvailabilityScreen.this, "Select address first!!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
                 if(panditSelected){
 
-                    if (!ApplicationDataController.getInstance().isUserLoggedIn()) {
-                        SignUpUser();
+                    if(selectedAddress == null){
+                        if (!ApplicationDataController.getInstance().isUserLoggedIn()) {
+                            SignUpUser();
+                            return;
+                        }
+                        Toast.makeText(CheckAvailabilityScreen.this, "Select address first!!", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -203,7 +214,6 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                                     createOrder();
 
                                 }
-
                             }
 
                             @Override
@@ -213,33 +223,43 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                         });
 
                     } else {
-
                         createOrder();
-
                     }
-
 
                 }
                 else if (selectedDate != null && selectedTime != null && selectedCity != null){
                     String addressCity = selectedCity;
                     addressCity = addressCity.substring(0, 1).toUpperCase() + addressCity.substring(1);
+
+                    showProgressDialog();
+
                     ApiUtil.getInstance().getPandit(addressCity, selectedDate, pujaDetailModel.getTitle(), new Callback<AvailabilityModel>() {
                         @Override
                         public void onResponse(Call<AvailabilityModel> call, Response<AvailabilityModel> response) {
-                            availablePandit = response.body();
-                            findViewById(R.id.available_pandit_view).setVisibility(View.VISIBLE);
-                            final TextView userName = findViewById(R.id.user_name);
-                            final TextView userDetailEmail = findViewById(R.id.user_email);
-                            final TextView userMobile = findViewById(R.id.user_mobile);
-                            userName.setText(availablePandit.getName());
-                            userDetailEmail.setText(availablePandit.getEmail());
-                            userMobile.setText(availablePandit.getMobile());
-                            panditSelected = true;
-                            checkAvailability.setText("Book Now");
+                            hideLoader();
+                            if (response.body().getError().equals("0")){
+                                disableAddressButton(true, R.drawable.toolbar_gradient_round);
+                                availablePandit = response.body();
+                                findViewById(R.id.available_pandit_view).setVisibility(View.GONE);
+                                final TextView userName = findViewById(R.id.user_name);
+                                final TextView userDetailEmail = findViewById(R.id.user_email);
+                                final TextView userMobile = findViewById(R.id.user_mobile);
+                                userName.setText(availablePandit.getName());
+                                userDetailEmail.setText(availablePandit.getEmail());
+                                userMobile.setText(availablePandit.getMobile());
+                                panditSelected = true;
+                                checkAvailability.setText("Book Now");
+                                checkAvailability.setBackgroundResource(R.drawable.check_availability);
+                            }else{
+                                Toast.makeText(CheckAvailabilityScreen.this, "No Purohit available", Toast.LENGTH_SHORT).show();
+                                checkAvailability.setBackgroundResource(R.drawable.no_pandit);
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<AvailabilityModel> call, Throwable t) {
+
+                            hideLoader();
 
                         }
                     });
@@ -248,14 +268,35 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         });
 
 
-        findViewById(R.id.select_address).setOnClickListener(new View.OnClickListener() {
+        addressButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(CheckAvailabilityScreen.this,SelectAddressScreen.class),SELECT_ADDRESS);
+
+                startActivityForResult(new Intent(CheckAvailabilityScreen.this, SelectAddressScreen.class), SELECT_ADDRESS);
+
             }
         });
     }
 
+    void disableAddressButton(boolean b, int p) {
+        addressButton.setEnabled(b);
+        addressButton.setBackgroundResource(p);
+    }
+
+    private void showProgressDialog() {
+        if(progressDialog == null){
+            progressDialog = ProgressDialog.show(this,"Please wait..","",false);
+        }else{
+            progressDialog.show();
+        }
+    }
+
+    private void hideLoader() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
 
 
     private void SignUpUser() {
@@ -265,7 +306,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
     private void createOrder() {
         BookingModel bookingModel = new BookingModel();
         bookingModel.setBooking_id("");
-        bookingModel.setCat(categoryId);
+        bookingModel.setCat(pujaDetailModel.getCat());
         bookingModel.setEmail(userProfileModel.getEmail());
         bookingModel.setCity(selectedAddress.getCity());
         bookingModel.setLandmark(selectedAddress.getLandmark());
@@ -280,10 +321,13 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         bookingModel.setPin(selectedAddress.getPin());
         bookingModel.setPooja_date(selectedDate);
         bookingModel.setPooja_time(selectedTime);
-        bookingModel.setUser_name(ApplicationDataController.getInstance().getUserId());
+        bookingModel.setUser_id(ApplicationDataController.getInstance().getUserId());
+        bookingModel.setUser_name(userProfileModel.getName());
 
         Gson gson = new Gson();
         String json = gson.toJson(bookingModel);
+
+        showProgressDialog();
 
         ApiUtil.getInstance().booking(json, new Callback<List<OrderModel>>() {
 
@@ -301,6 +345,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                      * Set your logo here
                      */
                     checkout.setImage(R.mipmap.ic_launcher);
+
+                    checkout.setKeyID(getString(R.string.api_key));
 
                     /**
                      * Reference to current activity
@@ -323,8 +369,11 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                          *     Invoice Payment
                          *     etc.
                          */
-                        options.put("description", "booking");
+                        options.put("description", bookingId);
                         options.put("order_id",bookingId);
+                        options.put("merchant_id","E1GIemq6tiF1r2");
+                        options.put("currency", "INR");
+                        options.put("amount", ""+pujaDetailModel.getPrice());
                         /**
                          * Amount is always passed in PAISE
                          * Eg: "500" = Rs 5.00
@@ -336,8 +385,6 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
 
                 }
-
-
             }
 
             @Override
@@ -412,12 +459,6 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
             findViewById(R.id.available_pandit_view).setVisibility(View.GONE);
 
-            panditSelected = false;
-
-            availablePandit = null;
-
-            checkAvailability.setText("Check Availability");
-
             selectedAddress = data.getParcelableExtra(Constants.SELECTED_ADDRESS);
 
             addDataInAddressView();
@@ -469,14 +510,18 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
     @Override
     public void onPaymentSuccess(String s) {
 
+        hideLoader();
 
         L.d("status "+s);
-
 
     }
 
     @Override
     public void onPaymentError(int i, String s) {
+
+        hideLoader();
+
+        L.d("error message "+s);
 
     }
 }

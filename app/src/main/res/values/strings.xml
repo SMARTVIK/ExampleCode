@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PanditJi</string>
+    <string name="app_name">Vaidik Sewa</string>
     <string name="menu_home">Home</string>
     <string name="menu_categories">Categories</string>
     <string name="menu_my_booking">My Booking</string>
@@ -27,4 +27,5 @@
     <string name="title_category">Category</string>
     <string name="title_activity_pandit_profile">PanditProfile</string>
     <string name="permission_rationale">Location permission is needed for core functionality</string>
+    <string name="api_key">rzp_test_56aLgbVJ0OiLnw</string>
 </resources>

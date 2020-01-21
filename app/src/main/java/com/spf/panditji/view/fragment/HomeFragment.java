@@ -22,6 +22,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.R;
 import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.CategoryModel;
@@ -220,9 +221,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
 
-                if(response.isSuccessful() && response.code() == 200){
+                if (response.isSuccessful() && response.code() == 200) {
                     categoriesList = response.body();
                     categoriesAdapter.setData(response.body());
+                    ApplicationDataController.getInstance().setCategoriesList(categoriesList);
                 }
 
             }
