@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
@@ -44,9 +45,18 @@ class HomeActivity : AppCompatActivity() {
 
         val navigationController = findNavController(R.id.nav_host_fragment)
 
+
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home,R.id.nav_categories,R.id.nav_my_bookings,R.id.nav_my_account,R.id.nav_about_us),drawerLayout
+            setOf(
+                R.id.nav_home,
+                R.id.nav_categories,
+                R.id.nav_my_bookings,
+                R.id.nav_my_account,
+                R.id.nav_about_us
+            ), drawerLayout
         )
+
+
 
         setupActionBarWithNavController(navigationController, appBarConfiguration!!)
         navView.setupWithNavController(navigationController)
@@ -72,20 +82,32 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-
-        if(intent.hasExtra(Constants.OPEN_BOOKING)){
-
-            
-
+        if (intent.hasExtra(Constants.OPEN_BOOKING)) {
+            navView.getMenu().getItem(2).setChecked(true);
+            navigationController.navigate(R.id.nav_my_bookings)
         }
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
-        return true
+        return if (ApplicationDataController.getInstance().userId == null) false else true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if (item?.itemId == R.id.action_settings) {
+            VadikSewaApplication.getInstance().sharedPrefs.edit().clear()
+            startActivity(Intent(this@HomeActivity, SignInActivity::class.java))
+            finish()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+
+
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)

@@ -128,7 +128,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         final List<String> list = new ArrayList<String>();
 
         list.add("Noida");
-        list.add("Delhi");
+        list.add("Kashi");
+        list.add("lucknow");
         list.add("Prayagraj");
         list.add("G. Noida");
         list.add("Gururam");
@@ -316,7 +317,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
     private void showProgressDialog() {
         if(progressDialog == null){
-            progressDialog = ProgressDialog.show(this,"Please wait..","",false);
+            progressDialog = ProgressDialog.show(this,"","Please wait..",false);
         }else{
             progressDialog.show();
         }
@@ -354,6 +355,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         bookingModel.setUser_id(ApplicationDataController.getInstance().getUserId());
         bookingModel.setUser_name(userProfileModel.getName());
         bookingModel.setOther_price("0");
+        bookingModel.setImg(pujaDetailModel.getImg());
+        bookingModel.setId(pujaDetailModel.getId());
 
         Gson gson = new Gson();
         String json = gson.toJson(bookingModel);
@@ -543,8 +546,6 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
     @Override
     public void onPaymentSuccess(String s) {
 
-        hideLoader();
-
         L.d("status "+s);
 
         ApiUtil.getInstance().sendSuccess(bookingId,(s!=null ? "success":"failed"),new Callback<SuccessModel>() {
@@ -553,13 +554,16 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
             public void onResponse(Call<SuccessModel> call, Response<SuccessModel> response) {
 
                 if (response.body().getError()==0){
-                    startActivity(new Intent(CheckAvailabilityScreen.this,HomeActivity.class).putExtra(Constants.OPEN_BOOKING,true));
+                    startActivity(new Intent(CheckAvailabilityScreen.this,HomeActivity.class).putExtra(Constants.OPEN_BOOKING,true).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK));
+                    finish();
                 }
-
+                hideLoader();
             }
 
             @Override
             public void onFailure(Call<SuccessModel> call, Throwable t) {
+
+                L.d("onFailure..");
 
             }
         });

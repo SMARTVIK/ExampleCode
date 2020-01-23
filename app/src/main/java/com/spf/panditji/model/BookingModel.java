@@ -26,6 +26,8 @@ public class BookingModel {
 
     private String booking_id;
     private String user_name;
+    private String img;
+    private String id;
 
     public String getUser_id() {
         return user_id;
@@ -198,5 +200,21 @@ public class BookingModel {
 
     public void setPandit_email(String pandit_email) {
         this.pandit_email = pandit_email;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 }

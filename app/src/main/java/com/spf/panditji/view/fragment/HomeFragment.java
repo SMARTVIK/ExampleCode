@@ -99,20 +99,19 @@ public class HomeFragment extends Fragment {
     }
 
 
-    private void showProgressDialog() {
-        if(progressDialog == null){
-            progressDialog = ProgressDialog.show(getContext(),"Please wait..","",false);
-        }else{
-            progressDialog.show();
-        }
-    }
-
     private void hideLoader() {
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
     }
 
+    private void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog.show(getContext(), "", "Please Wait...", true);
+        } else {
+            progressDialog.show();
+        }
+    }
 
     private void initViews(View view) {
         TextView viewAllCategory = view.findViewById(R.id.view_all_bbc);

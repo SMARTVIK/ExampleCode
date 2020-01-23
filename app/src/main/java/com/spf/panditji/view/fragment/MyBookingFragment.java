@@ -1,6 +1,8 @@
 package com.spf.panditji.view.fragment;
 
 
+import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,12 +12,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.R;
+import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.BookingListModel;
 import com.spf.panditji.model.BookingModel;
+import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.util.ApiUtil;
+import com.spf.panditji.view.BookingAdapter;
+import com.spf.panditji.view.CategoryListActivity;
+import com.spf.panditji.view.RoundImageAdapter;
 import com.spf.panditji.view.SignInActivity;
 
 import java.util.List;
@@ -26,6 +37,9 @@ import retrofit2.Response;
 
 public class MyBookingFragment extends Fragment {
 
+    private ProgressDialog progressDialog;
+    private BookingAdapter bookingAdapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,7 +49,7 @@ public class MyBookingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        setUpRecyclerView(view);
         if(!ApplicationDataController.getInstance().isUserLoggedIn()){
             startActivity(new Intent(getContext(), SignInActivity.class));
         }else{
@@ -44,9 +58,19 @@ public class MyBookingFragment extends Fragment {
 
     }
 
+    private void setUpRecyclerView(View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.booking);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),RecyclerView.VERTICAL));
+        bookingAdapter = new BookingAdapter();
+        recyclerView.setAdapter(bookingAdapter);
+    }
+
     private void getUsersBooking() {
 
-        showLoader();
+        showProgressDialog();
 
         ApiUtil.getInstance().getBookings(ApplicationDataController.getInstance().getUserId(),new Callback<List<BookingListModel>>() {
 
@@ -54,6 +78,8 @@ public class MyBookingFragment extends Fragment {
             public void onResponse(Call<List<BookingListModel>> call, Response<List<BookingListModel>> response) {
 
                 hideLoader();
+
+                bookingAdapter.setData(response.body());
 
             }
 
@@ -68,15 +94,19 @@ public class MyBookingFragment extends Fragment {
 
     }
 
+
     private void hideLoader() {
-
-
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
     }
 
-    private void showLoader() {
-
-
+    private void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog.show(getContext(), "", "Please Wait...", true);
+        } else {
+            progressDialog.show();
+        }
     }
-
 
 }
