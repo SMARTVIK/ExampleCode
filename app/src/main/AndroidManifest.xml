@@ -3,9 +3,7 @@
     package="com.spf.panditji">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
--->
+
     <application
         android:name=".view.VadikSewaApplication"
         android:allowBackup="true"
@@ -13,18 +11,25 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.CheckAvailabilityScreen"
+        <activity
+            android:name=".view.PopularPoojaList"
+            android:label="@string/title_activity_popular_pooja_list"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".view.PopularPurohitList"
+            android:label="@string/title_activity_popular_purohit_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.CheckAvailabilityScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.PanditProfile"
             android:label="@string/title_activity_pandit_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".view.SelectAddressScreen"
             android:label="@string/title_activity_pandit_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".view.DetailScreen"
             android:label="@string/title_activity_detail_screen"
@@ -41,16 +46,19 @@
             android:name=".view.fragment.ViewAllCategories"
             android:label="@string/title_category"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.VerifyEmailActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".view.VerifyEmailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.ForgotPasswordActivity" />
-        <activity android:name=".view.SignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".view.SignInActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".view.SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.SignInActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -61,13 +69,9 @@
             </intent-filter>
         </activity>
 
-
         <meta-data
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_Qh9oorV5KDPZj4" />
-
-
-
     </application>
 
 </manifest>

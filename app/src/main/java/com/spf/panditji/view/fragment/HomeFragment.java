@@ -35,6 +35,8 @@ import com.spf.panditji.view.CategoryListActivity;
 import com.spf.panditji.view.DetailScreen;
 import com.spf.panditji.view.PanditProfile;
 import com.spf.panditji.view.PopularPoojaAdapter;
+import com.spf.panditji.view.PopularPoojaList;
+import com.spf.panditji.view.PopularPurohitList;
 import com.spf.panditji.view.RoundImageAdapter;
 import com.spf.panditji.view.RoundRectCornerImageView;
 
@@ -56,6 +58,8 @@ public class HomeFragment extends Fragment {
     private List<CategoryModel> categoriesList;
     private List<PagerModel> pageModels = new ArrayList<>();
     private ProgressDialog progressDialog;
+    private List<PopularPanditModel> panditList = new ArrayList<>();
+    private List<PopularPoojaModel> poojaList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -121,28 +125,22 @@ public class HomeFragment extends Fragment {
         viewAllCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
               startActivity(new Intent(getContext(),ViewAllCategories.class).putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) categoriesList));
-
             }
         });
 
         viewAllPooja.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-
-
-
+                startActivity(new Intent(getContext(), PopularPurohitList.class).putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) panditList));
             }
         });
 
         viewAllPurohit.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-
-
-
+                startActivity(new Intent(getContext(), PopularPoojaList.class).putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) poojaList));
             }
         });
     }
@@ -155,6 +153,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<PopularPanditModel>> call, Response<List<PopularPanditModel>> response) {
                 hideLoader();
                 if(response.isSuccessful() && response.code() == 200){
+                    panditList = response.body();
                     popularPanditAdapter.setData(response.body());
                 }
             }
@@ -215,11 +214,10 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onResponse(Call<List<PopularPoojaModel>> call, Response<List<PopularPoojaModel>> response) {
-
-                if(response.isSuccessful() && response.code() == 200){
+                if (response.isSuccessful() && response.code() == 200) {
+                    poojaList = response.body();
                     popularPoojaAdapter.setData(response.body());
                 }
-
             }
 
             @Override
@@ -258,9 +256,7 @@ public class HomeFragment extends Fragment {
         categoriesAdapter = new RoundImageAdapter(new OnItemClick<CategoryModel>() {
             @Override
             public void onClick(CategoryModel categoryModel) {
-
                 startActivity(new Intent(getContext(), CategoryListActivity.class).putExtra("cat",categoryModel.getCat()));
-
             }
         });
         recyclerView.setAdapter(categoriesAdapter);
@@ -273,9 +269,7 @@ public class HomeFragment extends Fragment {
         popularPoojaAdapter = new PopularPoojaAdapter(new OnItemClick<PopularPoojaModel>() {
             @Override
             public void onClick(PopularPoojaModel popularPoojaModel) {
-
                 startActivity(new Intent(getContext(), DetailScreen.class).putExtra("id",popularPoojaModel.getId()));
-
             }
         });
         recyclerView.setAdapter(popularPoojaAdapter);
@@ -285,7 +279,6 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.popular_pandit_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-
         popularPanditAdapter = new PopularPanditAdapter(new OnItemClick<PopularPanditModel>() {
             @Override
             public void onClick(PopularPanditModel popularPanditModel) {
