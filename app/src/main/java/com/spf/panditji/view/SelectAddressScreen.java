@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -36,14 +37,25 @@ public class SelectAddressScreen extends AppCompatActivity {
     private List<AddressModel> addresses = new ArrayList<>();
     private AddressAdapter addressAdapter;
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_address);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Select Address");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Select Address");
         setUpListView();
         getAllAddresses(ApplicationDataController.getInstance().getUserId());
     }

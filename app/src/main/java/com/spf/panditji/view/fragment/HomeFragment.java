@@ -9,16 +9,17 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -39,13 +40,11 @@ import com.spf.panditji.view.PopularPoojaList;
 import com.spf.panditji.view.PopularPurohitList;
 import com.spf.panditji.view.RoundImageAdapter;
 import com.spf.panditji.view.RoundRectCornerImageView;
+import com.spf.panditji.view.Utility;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
-import ir.apend.slider.model.Slide;
-import ir.apend.slider.ui.Slider;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,11 +54,12 @@ public class HomeFragment extends Fragment {
     private RoundImageAdapter categoriesAdapter;
     private PopularPoojaAdapter popularPoojaAdapter;
     private PopularPanditAdapter popularPanditAdapter;
-    private List<CategoryModel> categoriesList;
+    private List<CategoryModel> categoriesList = new ArrayList<>();
     private List<PagerModel> pageModels = new ArrayList<>();
     private ProgressDialog progressDialog;
     private List<PopularPanditModel> panditList = new ArrayList<>();
     private List<PopularPoojaModel> poojaList = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -74,15 +74,31 @@ public class HomeFragment extends Fragment {
         setUpBookByCategory(view);
         setUpPopularPoojaList(view);
         setUpPopularPanditList(view);
+
+        if (!Utility.checkInternetConnection(getContext())) {
+            Toast.makeText(getContext(), "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+        } else {
+            getAllList(view);
+        }
+    }
+
+    void getAllList(@NonNull View view) {
         showProgressDialog();
         getHomeCat(view);
         getBookByCategory();
         getPopularPoojaList();
         getPopularPanditList();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void getHomeCat(final View view) {
 
+        if(!eventImagesUrl.isEmpty()){
+            hideLoader();
+            homeViewPagerAdapter.eventImagesUrl = eventImagesUrl;
+            homeViewPagerAdapter.notifyDataSetChanged();
+            return;
+        }
         ApiUtil.getInstance().getHomeCat(new Callback<List<PagerModel>>() {
 
             @Override
@@ -117,10 +133,23 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void initViews(View view) {
+    private void initViews(final View view) {
         TextView viewAllCategory = view.findViewById(R.id.view_all_bbc);
         TextView viewAllPooja = view.findViewById(R.id.view_all_popular_pooja);
         TextView viewAllPurohit = view.findViewById(R.id.view_all_purohit);
+
+        swipeRefreshLayout = view.findViewById(R.id.swipe_to_refresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (Utility.checkInternetConnection(getContext())) {
+                    getAllList(view);
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                    Toast.makeText(getContext(), "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         viewAllCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +161,7 @@ public class HomeFragment extends Fragment {
         viewAllPooja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), PopularPurohitList.class).putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) panditList));
+                startActivity(new Intent(getContext(), PopularPoojaList.class).putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) poojaList));
             }
         });
 
@@ -140,12 +169,18 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), PopularPoojaList.class).putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) poojaList));
+                startActivity(new Intent(getContext(), PopularPurohitList.class).putParcelableArrayListExtra("list", (ArrayList<? extends Parcelable>) panditList));
             }
         });
     }
 
     private void getPopularPanditList() {
+
+        if(!panditList.isEmpty()){
+            popularPanditAdapter.setData(panditList);
+            hideLoader();
+            return;
+        }
 
         ApiUtil.getInstance().getPopularPanditList(new Callback<List<PopularPanditModel>>() {
 
@@ -210,6 +245,12 @@ public class HomeFragment extends Fragment {
 
     private void getPopularPoojaList() {
 
+        if(!poojaList.isEmpty()){
+            popularPoojaAdapter.setData(poojaList);
+            hideLoader();
+            return;
+        }
+
         ApiUtil.getInstance().getPopularPoojaList(new Callback<List<PopularPoojaModel>>() {
 
             @Override
@@ -229,6 +270,13 @@ public class HomeFragment extends Fragment {
     }
 
     private void getBookByCategory() {
+
+        if(!categoriesList.isEmpty()){
+            categoriesAdapter.setData(categoriesList);
+            hideLoader();
+            return;
+        }
+
         ApiUtil.getInstance().getCategories(new Callback<List<CategoryModel>>() {
 
             @Override
@@ -266,7 +314,7 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.trending_pooja_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        popularPoojaAdapter = new PopularPoojaAdapter(new OnItemClick<PopularPoojaModel>() {
+        popularPoojaAdapter = new PopularPoojaAdapter(false, new OnItemClick<PopularPoojaModel>() {
             @Override
             public void onClick(PopularPoojaModel popularPoojaModel) {
                 startActivity(new Intent(getContext(), DetailScreen.class).putExtra("id",popularPoojaModel.getId()));
@@ -279,7 +327,7 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.popular_pandit_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),RecyclerView.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
-        popularPanditAdapter = new PopularPanditAdapter(new OnItemClick<PopularPanditModel>() {
+        popularPanditAdapter = new PopularPanditAdapter(false, new OnItemClick<PopularPanditModel>() {
             @Override
             public void onClick(PopularPanditModel popularPanditModel) {
                 startActivity(new Intent(getContext(), PanditProfile.class).putExtra("pandit_model",popularPanditModel));
@@ -320,7 +368,7 @@ public class HomeFragment extends Fragment {
 
     private class HomeViewPagerAdapter extends PagerAdapter {
 
-        private List<PagerModel> eventImagesUrl;
+        private List<PagerModel> eventImagesUrl = new ArrayList<>();
 
         public HomeViewPagerAdapter(Context context, List<PagerModel> eventImagesUrl) {
             this.eventImagesUrl = eventImagesUrl;

@@ -12,8 +12,10 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -80,6 +82,17 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
     private ProgressDialog progressDialog;
     private TextView addressButton;
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +101,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         userProfileModel = ApplicationDataController.getInstance().getCurrentUserProfile();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Details");
 
         addressButton = findViewById(R.id.select_address);
@@ -153,6 +167,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                     selectedAddress = null;
 
                     disableAddressButton(false,R.drawable.toolbar_gradient_round_dis);
+
+
             }
 
             @Override
@@ -311,6 +327,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
     }
 
     void disableAddressButton(boolean b, int p) {
+        findViewById(R.id.address_layout).setVisibility(View.GONE);
+        addressButton.setText("Select Address");
         addressButton.setEnabled(b);
         addressButton.setBackgroundResource(p);
     }

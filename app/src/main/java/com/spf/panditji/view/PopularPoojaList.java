@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.spf.panditji.R;
@@ -32,15 +33,25 @@ public class PopularPoojaList extends AppCompatActivity {
         setContentView(R.layout.activity_popular_pooja_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        poojaList = getIntent().getParcelableExtra("list");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        poojaList = getIntent().getParcelableArrayListExtra("list");
         initViews();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void initViews() {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
-        PopularPoojaAdapter popularPanditAdapter = new PopularPoojaAdapter(new OnItemClick<PopularPoojaModel>() {
+        PopularPoojaAdapter popularPanditAdapter = new PopularPoojaAdapter(true,new OnItemClick<PopularPoojaModel>() {
             @Override
             public void onClick(PopularPoojaModel popularPanditModel) {
                 startActivity(new Intent(PopularPoojaList.this, DetailScreen.class).putExtra("id", popularPanditModel.getId()));
@@ -48,5 +59,6 @@ public class PopularPoojaList extends AppCompatActivity {
         });
         recyclerView.addItemDecoration(new SpacesItemDecoration(30));
         recyclerView.setAdapter(popularPanditAdapter);
+        popularPanditAdapter.setData(poojaList);
     }
 }

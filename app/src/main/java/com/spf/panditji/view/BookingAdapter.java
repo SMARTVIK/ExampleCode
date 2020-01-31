@@ -37,6 +37,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ItemView
                     .load(baseUrl+bookingModel.getImg())
                     .into(holder.imageView);
         }
+        holder.bookingTime.setText(bookingModel.getPooja_date());
     }
 
     @Override

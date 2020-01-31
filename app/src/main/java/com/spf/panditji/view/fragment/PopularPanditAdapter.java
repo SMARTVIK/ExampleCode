@@ -13,24 +13,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.spf.panditji.R;
 import com.spf.panditji.listener.OnItemClick;
-import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.model.PopularPanditModel;
-import com.spf.panditji.view.PopularPoojaAdapter;
 
 import java.util.List;
 
 public class PopularPanditAdapter extends RecyclerView.Adapter<PopularPanditAdapter.ItemViewHolder> {
     private final OnItemClick<PopularPanditModel> onItemClick;
+    private final boolean isGrid;
+    private static final int GRID_TYPE = 1;
+    private static final int NORMAL_TYPE = 2;
     private List<PopularPanditModel> models;
 
-    public PopularPanditAdapter(OnItemClick<PopularPanditModel> onItemClick) {
+    public PopularPanditAdapter(boolean isGrid, OnItemClick<PopularPanditModel> onItemClick) {
         this.onItemClick = onItemClick;
+        this.isGrid = isGrid;
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        return isGrid?GRID_TYPE:NORMAL_TYPE;
     }
 
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.popular_pandit_item,parent,false));
+        if (viewType == GRID_TYPE) {
+            return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.popular_pandit_item_grid,parent,false));
+        }else{
+            return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.popular_pandit_item,parent,false));
+        }
+
     }
 
     @Override

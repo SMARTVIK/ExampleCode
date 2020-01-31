@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spf.panditji">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -49,7 +50,10 @@
         <activity
             android:name=".view.VerifyEmailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+
         <activity android:name=".view.ForgotPasswordActivity" />
+
         <activity
             android:name=".view.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
