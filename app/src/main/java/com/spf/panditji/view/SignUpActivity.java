@@ -184,6 +184,12 @@ public class SignUpActivity extends AppCompatActivity {
         phone = findViewById(R.id.mobile_edit_text);
         password = findViewById(R.id.pass_edit_text);
         confirmPassword = findViewById(R.id.confirm_pass_edit_text);
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void showLoader() {

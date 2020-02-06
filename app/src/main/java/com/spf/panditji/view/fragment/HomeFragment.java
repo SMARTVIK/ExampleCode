@@ -95,8 +95,7 @@ public class HomeFragment extends Fragment {
 
         if(!eventImagesUrl.isEmpty()){
             hideLoader();
-            homeViewPagerAdapter.eventImagesUrl = eventImagesUrl;
-            homeViewPagerAdapter.notifyDataSetChanged();
+            setUpViewPager(view);
             return;
         }
         ApiUtil.getInstance().getHomeCat(new Callback<List<PagerModel>>() {

@@ -14,6 +14,8 @@ public class AvailabilityModel {
     private String name;
     private String email;
     private String mobile;
+    private String alert;
+    private String msg;
 
     public String getError() {
         return error;
@@ -55,5 +57,21 @@ public class AvailabilityModel {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getAlert() {
+        return alert;
+    }
+
+    public void setAlert(String alert) {
+        this.alert = alert;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

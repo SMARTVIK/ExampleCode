@@ -45,7 +45,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.fragment.ViewAllCategories"
-            android:label="@string/title_category"
+            android:label="Categories"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.VerifyEmailActivity"

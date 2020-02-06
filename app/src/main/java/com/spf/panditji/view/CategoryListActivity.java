@@ -46,7 +46,7 @@ public class CategoryListActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle(getIntent().getStringExtra(Constants.TITLE));
+        getSupportActionBar().setTitle(getIntent().getStringExtra(Constants.CAT));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

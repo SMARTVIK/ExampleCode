@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.spf.panditji.R;
 import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.CategoryModel;
+import com.spf.panditji.util.Constants;
 import com.spf.panditji.view.CategoryListActivity;
 import com.spf.panditji.view.GridAdapter;
 import com.spf.panditji.view.SpacesItemDecoration;
@@ -46,7 +47,7 @@ public class ViewAllCategories extends AppCompatActivity {
 
                 //onItemClick handling
 
-                startActivity(new Intent(ViewAllCategories.this, CategoryListActivity.class).putExtra("cat",categoryModel.getCat()));
+                startActivity(new Intent(ViewAllCategories.this, CategoryListActivity.class).putExtra(Constants.CAT,categoryModel.getCat()));
 
 
             }
@@ -59,7 +60,7 @@ public class ViewAllCategories extends AppCompatActivity {
 
     private void initViews() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Category");
+        toolbar.setTitle("Categories");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

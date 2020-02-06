@@ -3,6 +3,7 @@ package com.spf.panditji.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +23,7 @@ import com.spf.panditji.ApplicationDataController
 import com.spf.panditji.R
 import com.spf.panditji.util.Constants
 import ir.apend.slider.model.Slide
+import kotlinx.android.synthetic.main.activity_home.*
 import java.util.ArrayList
 
 class HomeActivity : AppCompatActivity() {
@@ -91,7 +93,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-        return if (ApplicationDataController.getInstance().userId == null) false else true
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -100,6 +102,11 @@ class HomeActivity : AppCompatActivity() {
             VadikSewaApplication.getInstance().sharedPrefs.edit().clear()
             startActivity(Intent(this@HomeActivity, SignInActivity::class.java))
             finish()
+            return true
+        }
+
+        if(item?.getItemId() == android.R.id.home){ // use android.R.id
+            drawer_layout.openDrawer(Gravity.LEFT);
             return true
         }
 

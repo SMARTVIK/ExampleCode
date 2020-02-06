@@ -13,4 +13,5 @@ public class Constants {
     public static final String USER_ID = "user_id";
     public static final String SELECTED_ADDRESS = "selected_address";
     public static final String TITLE = "title";
+    public static final String CAT = "cat";
 }

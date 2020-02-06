@@ -142,8 +142,9 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         final List<String> list = new ArrayList<String>();
 
         list.add("Noida");
+        list.add("Delhi");
         list.add("Kashi");
-        list.add("lucknow");
+        list.add("Lucknow");
         list.add("Prayagraj");
         list.add("G. Noida");
         list.add("Gururam");
@@ -156,17 +157,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
                     selectedCity = list.get(i);
 
-                    panditSelected = false;
-
-                    availablePandit = null;
-
-                    checkAvailability.setText("Check Availability");
-
-                    checkAvailability.setBackgroundResource(R.drawable.green_round);
-
-                    selectedAddress = null;
-
-                    disableAddressButton(false,R.drawable.toolbar_gradient_round_dis);
+                    enableCheckButton();
 
 
             }
@@ -273,6 +264,12 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                     String addressCity = selectedCity;
                     addressCity = addressCity.substring(0, 1).toUpperCase() + addressCity.substring(1);
 
+
+                    if(!Utility.checkInternetConnection(CheckAvailabilityScreen.this)){
+                        Toast.makeText(CheckAvailabilityScreen.this, "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     showProgressDialog();
 
                     ApiUtil.getInstance().getPandit(addressCity, selectedDate, pujaDetailModel.getTitle(), new Callback<AvailabilityModel>() {
@@ -324,6 +321,20 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
             }
         });
+    }
+
+    void enableCheckButton() {
+        panditSelected = false;
+
+        availablePandit = null;
+
+        checkAvailability.setText("Check Availability");
+
+        checkAvailability.setBackgroundResource(R.drawable.green_round);
+
+        selectedAddress = null;
+
+        disableAddressButton(false,R.drawable.toolbar_gradient_round_dis);
     }
 
     void disableAddressButton(boolean b, int p) {
@@ -477,6 +488,11 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
             selectedDate = getProperDigit(selectedDay) + " / " + getProperDigit(selectedMonth+1) + " / "
                     + selectedYear;
             datePickerButton.setText(selectedDate);
+
+            if(selectedCity != null && selectedTime!=null && !selectedCity.equals("Select")){
+                enableCheckButton();
+            }
+
         }
     };
 
