@@ -150,7 +150,7 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
         list.add("Gururam");
         list.add("Select");
 
-        Spinner spinner_1 = (Spinner) findViewById(R.id.spinner);
+        final Spinner spinner_1 = (Spinner) findViewById(R.id.spinner);
         spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -164,6 +164,15 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        findViewById(R.id.select_city_layout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                spinner_1.performClick();
 
             }
         });
@@ -222,6 +231,12 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
                     Toast.makeText(CheckAvailabilityScreen.this, "Select city first!!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                if(!Utility.checkInternetConnection(CheckAvailabilityScreen.this)){
+                    Toast.makeText(CheckAvailabilityScreen.this, "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 if(panditSelected){
 
@@ -357,7 +372,6 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
             progressDialog.dismiss();
         }
     }
-
 
     private void SignUpUser() {
         startActivityForResult(new Intent(CheckAvailabilityScreen.this,SignInActivity.class).putExtra(Constants.OPEN_BOOKING,true),SIGN_UP);
@@ -598,6 +612,8 @@ public class CheckAvailabilityScreen extends AppCompatActivity implements Paymen
             public void onFailure(Call<SuccessModel> call, Throwable t) {
 
                 L.d("onFailure..");
+
+                hideLoader();
 
             }
         });

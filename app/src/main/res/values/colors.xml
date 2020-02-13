@@ -1,5 +1,5 @@
 <resources>
-    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimary">#FEA900</color>
     <color name="colorPrimaryDark">#F87400</color>
     <color name="colorAccent">@color/green</color>
 

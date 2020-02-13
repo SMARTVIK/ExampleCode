@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.spf.panditji.R;
+import com.spf.panditji.listener.OnItemClick;
 import com.spf.panditji.model.BookingListModel;
 import com.spf.panditji.model.BookingModel;
 
@@ -18,7 +19,12 @@ import java.util.List;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ItemViewHolder> {
 
+    private final OnItemClick<BookingListModel> onClick;
     private List<BookingListModel> items;
+
+    public BookingAdapter(OnItemClick<BookingListModel> bookingListModelOnItemClick) {
+        this.onClick = bookingListModelOnItemClick;
+    }
 
     @NonNull
     @Override
@@ -55,14 +61,18 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ItemView
         TextView name, amount, bookingTime;
         ImageView imageView;
 
-        public ItemViewHolder(@NonNull View itemView) {
+        public ItemViewHolder(@NonNull final View itemView) {
             super(itemView);
-
             imageView = itemView.findViewById(R.id.image);
             name = itemView.findViewById(R.id.name);
             amount = itemView.findViewById(R.id.amount);
             bookingTime = itemView.findViewById(R.id.booking_time);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClick.onClick(items.get(getLayoutPosition()));
+                }
+            });
         }
     }
 }

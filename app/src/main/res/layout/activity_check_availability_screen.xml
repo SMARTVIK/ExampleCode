@@ -262,6 +262,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/select_city_layout"
                 android:background="@drawable/round_18"
                 android:padding="10dp"
                 android:layout_marginTop="10dp"

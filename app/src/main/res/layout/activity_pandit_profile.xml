@@ -2,9 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
-    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -83,158 +82,184 @@
 
         </FrameLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F8F8F8"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/toolbar_gradient"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="Abount Me"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:fontFamily="sans-serif"
-                    android:text="Name"
-                    android:textColor="@color/user_details"
-                    android:textSize="16sp" />
+                android:background="#F8F8F8"
+                android:orientation="vertical">
 
 
                 <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/add"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="sans-serif"
-                    android:text="Name"
-                    android:textColor="@color/darkBlack"
+                    android:background="@drawable/toolbar_gradient"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:padding="20dp"
+                    android:text="Abount Me"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
 
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Name"
+                        android:textColor="@color/user_details"
+                        android:textSize="16sp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Name"
+                        android:textColor="@color/darkBlack"
+                        android:textSize="16sp" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Email"
+                        android:textColor="@color/user_details"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/user_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Name"
+                        android:textColor="@color/darkBlack"
+                        android:textSize="16sp" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Mobile"
+                        android:textColor="@color/user_details"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/user_mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Name"
+                        android:textColor="@color/darkBlack"
+                        android:textSize="16sp" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Address"
+                        android:textColor="@color/user_details"
+                        android:textSize="16sp" />
+
+
+                    <TextView
+                        android:id="@+id/user_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:fontFamily="sans-serif"
+                        android:text="Name"
+                        android:textColor="@color/darkBlack"
+                        android:textSize="16sp" />
+
+
+                </RelativeLayout>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/all_address"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:fontFamily="sans-serif"
-                    android:text="Email"
-                    android:textColor="@color/user_details"
-                    android:textSize="16sp" />
+                    android:background="@drawable/address_round"
+                    android:fontFamily="sans-serif-medium"
+                    android:padding="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="22sp"
+                    android:text="All Address"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
 
-                <TextView
-                    android:id="@+id/user_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="sans-serif"
-                    android:text="Name"
-                    android:textColor="@color/darkBlack"
-                    android:textSize="16sp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:fontFamily="sans-serif"
-                    android:text="Mobile"
-                    android:textColor="@color/user_details"
-                    android:textSize="16sp" />
-
-
-                <TextView
-                    android:id="@+id/user_mobile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="sans-serif"
-                    android:text="Name"
-                    android:textColor="@color/darkBlack"
-                    android:textSize="16sp" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:fontFamily="sans-serif"
-                    android:text="Address"
-                    android:textColor="@color/user_details"
-                    android:textSize="16sp" />
-
-
-                <TextView
-                    android:id="@+id/user_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:fontFamily="sans-serif"
-                    android:text="Name"
-                    android:textColor="@color/darkBlack"
-                    android:textSize="16sp" />
-
-
-            </RelativeLayout>
-
-
-        </LinearLayout>
+        </ScrollView>
 
 
     </LinearLayout>
 
 
-
     <TextView
-        android:gravity="center"
         android:id="@+id/go_to_sign_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="30dp"
         android:background="@drawable/toolbar_gradient_round"
-        android:padding="15dp"
-        android:text="Sign In First"
         android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:padding="15dp"
+        android:visibility="gone"
+        android:text="Sign In First"
         android:textColor="@color/white"
         android:textSize="24sp" />
 

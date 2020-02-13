@@ -20,6 +20,7 @@ import com.spf.panditji.model.SignUp;
 import com.spf.panditji.model.SuccessModel;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.view.AddressResponse;
+import com.spf.panditji.view.ForgotPasswordModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -252,5 +253,26 @@ public class ApiUtil {
         Call<SuccessModel> call = this.getApi().success(requestBody);
         call.enqueue(successModelCallback);
 
+    }
+
+    public void forgotPassword(String mobile, Callback<ForgotPasswordModel> forgotPasswordModelCallback) {
+        Map<String, String> values = new HashMap<>();
+        values.put("mobile",mobile);
+        String requestString = new JSONObject(values).toString();
+        final RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE),requestString.getBytes());
+        Call<ForgotPasswordModel> call = this.getApi().forgot(requestBody);
+        call.enqueue(forgotPasswordModelCallback);
+
+    }
+
+    public void createPassword(String mobile, String otp, String pass, Callback<OtpResponse> callback) {
+        Map<String, String> values = new HashMap<>();
+        values.put("mobile",mobile);
+        values.put("otp",otp);
+        values.put("pass",pass);
+        String requestString = new JSONObject(values).toString();
+        final RequestBody requestBody = RequestBody.create(MediaType.parse(Constant.MEDIA_TYPE),requestString.getBytes());
+        Call<OtpResponse> call = this.getApi().create(requestBody);
+        call.enqueue(callback);
     }
 }

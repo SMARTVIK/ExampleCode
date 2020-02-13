@@ -26,6 +26,7 @@
 
 
         <TextView
+            android:id="@+id/title_address"
             android:text="Add Details"
             android:layout_centerInParent="true"
             android:textSize="@dimen/text_title"
@@ -54,6 +55,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/darkBlack"
+            android:hint="Mobile"
+            android:padding="@dimen/email_padding"
+            android:background="@drawable/email_bg"
+            android:inputType="number"
+            android:id="@+id/mobile_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <EditText
             android:layout_marginTop="@dimen/margin_top"

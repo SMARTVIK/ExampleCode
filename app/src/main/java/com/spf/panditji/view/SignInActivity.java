@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.spf.panditji.ApplicationDataController;
 import com.spf.panditji.R;
@@ -25,6 +26,7 @@ import retrofit2.Response;
 public class SignInActivity extends AppCompatActivity {
 
     private static final int OPEN_BOOKING = 100;
+    private static final int FORGOT_PASSWORD = 101;
 
     ProgressDialog progressDialog;
 
@@ -34,6 +36,8 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         final EditText userName = findViewById(R.id.email_edit_text);
         final EditText password = findViewById(R.id.password_edit_text);
+
+
 
         findViewById(R.id.sign_in).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +63,15 @@ public class SignInActivity extends AppCompatActivity {
                         .putExtra(Constants.OPEN_BOOKING,getIntent().getStringExtra(Constants.OPEN_BOOKING)),OPEN_BOOKING);
             }
         });
+
+        findViewById(R.id.forgot_password).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivityForResult(new Intent(SignInActivity.this,ForgotPasswordActivity.class),FORGOT_PASSWORD);
+
+            }
+        });
     }
 
     @Override
@@ -71,6 +84,11 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void goForInternallySignIn(final String user, final String pass, final boolean openBookingScreen) {
+
+        if(!Utility.checkInternetConnection(this)){
+            Toast.makeText(this, "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         progressDialog = ProgressDialog.show(this, "","Please Wait...", true);
 

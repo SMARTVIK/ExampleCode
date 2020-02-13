@@ -19,6 +19,7 @@ import com.spf.panditji.R;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.util.ApiUtil;
 import com.spf.panditji.util.Constants;
+import com.spf.panditji.view.SelectAddressScreen;
 import com.spf.panditji.view.SignInActivity;
 import com.spf.panditji.view.SignUpActivity;
 
@@ -40,16 +41,12 @@ public class MyAccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(!ApplicationDataController.getInstance().isUserLoggedIn()){
-            startActivity(new Intent(getContext(), SignInActivity.class));
-        }
-
-        if (ApplicationDataController.getInstance().getCurrentUserProfile() != null) {
+      /*  if (ApplicationDataController.getInstance().getCurrentUserProfile() != null) {
             view.findViewById(R.id.user_layout).setVisibility(View.VISIBLE);
             view.findViewById(R.id.go_to_sign_in).setVisibility(View.GONE);
             setUserProfile(view, ApplicationDataController.getInstance().getCurrentUserProfile());
             return;
-        }
+        }*/
 
         if (ApplicationDataController.getInstance().getUserId() != null) {
             getUserProfile(view);
@@ -65,6 +62,13 @@ public class MyAccountFragment extends Fragment {
                     startActivity(new Intent(getContext(), SignInActivity.class).putExtra(Constants.OPEN_BOOKING,true));
                     return;
                 }
+            }
+        });
+
+        view.findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), SelectAddressScreen.class).putExtra(Constants.HIDE_DONE,true));
             }
         });
     }

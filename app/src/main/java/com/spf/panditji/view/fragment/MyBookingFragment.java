@@ -26,6 +26,7 @@ import com.spf.panditji.model.CategoryModel;
 import com.spf.panditji.util.ApiUtil;
 import com.spf.panditji.view.BookingAdapter;
 import com.spf.panditji.view.CategoryListActivity;
+import com.spf.panditji.view.DetailScreen;
 import com.spf.panditji.view.RoundImageAdapter;
 import com.spf.panditji.view.SignInActivity;
 
@@ -64,7 +65,12 @@ public class MyBookingFragment extends Fragment {
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),RecyclerView.VERTICAL));
-        bookingAdapter = new BookingAdapter();
+        bookingAdapter = new BookingAdapter(new OnItemClick<BookingListModel>() {
+            @Override
+            public void onClick(BookingListModel bookingListModel) {
+//                startActivity(new Intent(getContext(), DetailScreen.class).putExtra("id",bookingListModel.getId()));
+            }
+        });
         recyclerView.setAdapter(bookingAdapter);
     }
 

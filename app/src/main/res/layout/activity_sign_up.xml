@@ -100,6 +100,7 @@
                 android:textColor="@color/darkBlack"
                 android:hint="Mobile Number"
                 android:padding="@dimen/email_padding"
+            android:maxLength="10"
                 android:background="@drawable/email_bg"
                 android:id="@+id/mobile_edit_text"
                 android:layout_width="match_parent"

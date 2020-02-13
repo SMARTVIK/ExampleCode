@@ -1,11 +1,17 @@
 package com.spf.panditji.view;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.spf.panditji.R;
@@ -39,7 +45,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ItemView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ItemViewHolder holder, final int position) {
 
         if(!(holder instanceof AddAddressViewHolder)){
 
@@ -50,6 +56,43 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ItemView
                                   +addressModel.getState()+"\n"
                                   +addressModel.getLandmark()+"\n"
                                   +addressModel.getPin());
+
+            if (selected == position) {
+                holder.radioButton.setChecked(true);
+                holder.threeDots.setVisibility(View.VISIBLE);
+            } else {
+                holder.radioButton.setChecked(false);
+                holder.threeDots.setVisibility(View.GONE);
+            }
+
+            holder.threeDots.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PopupMenu popup = new PopupMenu(holder.itemView.getContext(), view);
+                    //Inflating the Popup using xml file
+                    popup.getMenuInflater()
+                            .inflate(R.menu.pop_menu, popup.getMenu());
+
+                    //registering popup with OnMenuItemClickListener
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(MenuItem item) {
+
+                            if(item.getItemId() == R.id.one){
+                                ((SelectAddressScreen)holder.itemView.getContext()).editAddress(addressModels.get(position));
+                            }
+
+                            if(item.getItemId() == R.id.two){
+                                ((SelectAddressScreen)holder.itemView.getContext()).deleteAddress(addressModels.get(position));
+                            }
+
+
+                            return true;
+                        }
+                    });
+
+                    popup.show();
+                }
+            });
 
         }
 
@@ -68,16 +111,21 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ItemView
     public class ItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView address;
+        RadioButton radioButton;
+        ImageButton threeDots;
 
         public ItemViewHolder(@NonNull final View itemView) {
             super(itemView);
             address = itemView.findViewById(R.id.text);
+            radioButton = itemView.findViewById(R.id.radio);
+            threeDots = itemView.findViewById(R.id.three_dots);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     selected = getLayoutPosition();
                     ((SelectAddressScreen)itemView.getContext()).setSelectedAddress(addressModels.get(getLayoutPosition()));
+                    notifyDataSetChanged();
                 }
             });
         }

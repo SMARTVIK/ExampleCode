@@ -183,6 +183,47 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/pass_layout"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:visibility="visible"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/email_bg"
+                android:inputType="number"
+                android:padding="@dimen/email_padding"
+                android:maxLength="8"
+                android:hint="Password"
+                android:textColor="@color/darkBlack" />
+
+
+            <EditText
+                android:maxLength="8"
+                android:id="@+id/con_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/email_bg"
+                android:inputType="number"
+                android:padding="@dimen/email_padding"
+                android:hint="Confirm Password"
+                android:textColor="@color/darkBlack" />
+
+
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/submit"
@@ -207,7 +248,7 @@
         android:maxLength="6"
         android:layout_marginTop="10dp"
         android:background="@color/transparent"
-        android:inputType="textEmailAddress"
+        android:inputType="number"
         android:padding="@dimen/email_padding"
         android:cursorVisible="false"
         android:text=""

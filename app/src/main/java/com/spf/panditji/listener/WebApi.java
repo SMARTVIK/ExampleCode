@@ -17,6 +17,7 @@ import com.spf.panditji.model.SignUp;
 import com.spf.panditji.model.SuccessModel;
 import com.spf.panditji.model.UserProfileModel;
 import com.spf.panditji.view.AddressResponse;
+import com.spf.panditji.view.ForgotPasswordModel;
 
 import java.util.List;
 
@@ -78,4 +79,10 @@ public interface WebApi {
 
     @POST("success")
     Call<SuccessModel> success(@Body RequestBody userId);
+
+    @POST("forgot")
+    Call<ForgotPasswordModel> forgot(@Body RequestBody requestBody);
+
+    @POST("create_new_pass")
+    Call<OtpResponse> create(@Body RequestBody requestBody);
 }

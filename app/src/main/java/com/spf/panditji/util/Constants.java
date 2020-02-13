@@ -14,4 +14,7 @@ public class Constants {
     public static final String SELECTED_ADDRESS = "selected_address";
     public static final String TITLE = "title";
     public static final String CAT = "cat";
+    public static final String CREATE_NEW_PASS = "create_new_pass";
+    public static final String MOBILE = "mobile";
+    public static final String HIDE_DONE = "hide_done";
 }

@@ -101,4 +101,8 @@ public class ApplicationDataController {
     public List<CategoryModel> getCategoriesList() {
         return categoriesList;
     }
+
+    public void logout() {
+        VadikSewaApplication.getInstance().getSharedPrefs().edit().clear().commit();
+    }
 }

@@ -63,6 +63,11 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
+                if(!Utility.checkInternetConnection(SignUpActivity.this)){
+                    Toast.makeText(SignUpActivity.this, "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 showLoader();
 
                 ApiUtil.getInstance().signUpApi(

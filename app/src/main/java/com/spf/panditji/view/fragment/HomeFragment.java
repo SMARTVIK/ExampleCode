@@ -33,6 +33,7 @@ import com.spf.panditji.model.PopularPanditModel;
 import com.spf.panditji.model.PopularPoojaModel;
 import com.spf.panditji.util.ApiUtil;
 import com.spf.panditji.view.CategoryListActivity;
+import com.spf.panditji.view.CheckAvailabilityScreen;
 import com.spf.panditji.view.DetailScreen;
 import com.spf.panditji.view.PanditProfile;
 import com.spf.panditji.view.PopularPoojaAdapter;
@@ -303,6 +304,10 @@ public class HomeFragment extends Fragment {
         categoriesAdapter = new RoundImageAdapter(new OnItemClick<CategoryModel>() {
             @Override
             public void onClick(CategoryModel categoryModel) {
+                if(!Utility.checkInternetConnection(getContext())){
+                    Toast.makeText(getContext(), "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 startActivity(new Intent(getContext(), CategoryListActivity.class).putExtra("cat",categoryModel.getCat()));
             }
         });
@@ -316,6 +321,10 @@ public class HomeFragment extends Fragment {
         popularPoojaAdapter = new PopularPoojaAdapter(false, new OnItemClick<PopularPoojaModel>() {
             @Override
             public void onClick(PopularPoojaModel popularPoojaModel) {
+                if(!Utility.checkInternetConnection(getContext())){
+                    Toast.makeText(getContext(), "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 startActivity(new Intent(getContext(), DetailScreen.class).putExtra("id",popularPoojaModel.getId()));
             }
         });
@@ -329,6 +338,10 @@ public class HomeFragment extends Fragment {
         popularPanditAdapter = new PopularPanditAdapter(false, new OnItemClick<PopularPanditModel>() {
             @Override
             public void onClick(PopularPanditModel popularPanditModel) {
+                if(!Utility.checkInternetConnection(getContext())){
+                    Toast.makeText(getContext(), "No Internet Connection!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 startActivity(new Intent(getContext(), PanditProfile.class).putExtra("pandit_model",popularPanditModel));
             }
         });
